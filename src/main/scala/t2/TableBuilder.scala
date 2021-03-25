@@ -15,7 +15,7 @@
  */
 package t2
 
-/** Defines table. */
+/** Defines table builder. */
 trait TableBuilder {
   /** Gets current row count. */
   def rowCount: Int
@@ -24,7 +24,7 @@ trait TableBuilder {
   def columnCount: Int
 
   /**
-   * Test for row orientation.
+   * Tests for row orientation.
    *
    * @return `true` if row-oriented; `false` if column-oriented
    */
@@ -33,8 +33,7 @@ trait TableBuilder {
   /**
    * Adds values.
    *
-   * If row-oriented, values added as row; if column-oriented, value are added
-   * as column.
+   * A new row is added if `isRowOriented`; otherwise, a new column is added.
    *
    * @param values oriented values
    *
@@ -48,8 +47,7 @@ trait TableBuilder {
   /**
    * Adds values.
    *
-   * If row-oriented, values added as row; if column-oriented, value are added
-   * as column.
+   * A new row is added if `isRowOriented`; otherwise, a new column is added.
    *
    * @param one  value
    * @param more additional values
@@ -77,8 +75,8 @@ object TableBuilder {
    *
    * @param rowOriented indicator for row orientation
    *
-   * @return if `rowOriented` is `true`, row-oriented builder; otherwise,
-   * column-oriented builder
+   * @return row-oriented builder if `rowOriented`; otherwise, column-oriented
+   * builder
    */
   def apply(rowOriented: Boolean = true): TableBuilder =
     new TableBuilderImpl(rowOriented)

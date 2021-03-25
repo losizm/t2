@@ -46,8 +46,8 @@ trait Table {
   /**
    * Gets value at given location.
    *
-   * @param row    rowIndex
-   * @param column columnIndex
+   * @param row    row index
+   * @param column column index
    */
   def apply(row: Int, column: Int): String
 }
@@ -55,13 +55,13 @@ trait Table {
 /** Provides `Table` factory. */
 object Table {
   /**
-   * Creates table with specified orientation.
+   * Creates table with supplied data.
    *
-   * @param data table data
+   * @param data        table data
    * @param rowOriented indicator for row orientation
    *
-   * @return if `rowOriented` is `true`, row-oriented table; otherwise,
-   * column-oriented table
+   * @return row-oriented table if `rowOriented`; otherwise, column-oriented
+   * table
    */
   def apply(data: Seq[Seq[String]], rowOriented: Boolean = true): Table = {
     data.headOption.map(_.size).foreach { size =>
@@ -80,7 +80,11 @@ object Table {
   def forRows(data: Seq[Seq[String]]): Table =
     apply(data, true)
 
-  /** Creates column-oriented table builder. */
+  /**
+   * Creates column-oriented table with supplied data.
+   *
+   * @param data table data
+   */
   def forColumns(data: Seq[Seq[String]]): Table =
     apply(data, false)
 }
