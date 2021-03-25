@@ -44,10 +44,43 @@ trait Table {
   def column(index: Int): Seq[String]
 
   /**
-   * Gets cell value at given location.
+   * Gets value at given location.
    *
    * @param row    rowIndex
    * @param column columnIndex
    */
-  def cell(row: Int, column: Int): String
+  def apply(row: Int, column: Int): String
+}
+
+/** Provides `Table` factory. */
+object Table {
+  /**
+   * Creates table with specified orientation.
+   *
+   * @param data table data
+   * @param rowOriented indicator for row orientation
+   *
+   * @return if `rowOriented` is `true`, row-oriented table; otherwise,
+   * column-oriented table
+   */
+  def apply(data: Seq[Seq[String]], rowOriented: Boolean = true): Table = {
+    data.headOption.map(_.size).foreach { size =>
+      if (!data.tail.forall(_.size == size))
+        throw new IllegalArgumentException("Inconsistent table data")
+    }
+
+    new TableImpl(data, rowOriented)
+  }
+
+  /**
+   * Creates row-oriented table with supplied data.
+   *
+   * @param data table data
+   */
+  def forRows(data: Seq[Seq[String]]): Table =
+    apply(data, true)
+
+  /** Creates column-oriented table builder. */
+  def forColumns(data: Seq[Seq[String]]): Table =
+    apply(data, false)
 }

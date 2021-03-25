@@ -24,22 +24,43 @@ trait TableBuilder {
   def columnCount: Int
 
   /**
-   * Adds row values.
+   * Test for row orientation.
    *
-   * @param values row values
-   *
-   * @return this builder
+   * @return `true` if row-oriented; `false` if column-oriented
    */
-  def addRow(values: Seq[String]): this.type
+  def isRowOriented: Boolean
 
   /**
-   * Adds column values.
+   * Adds values.
    *
-   * @param values column values
+   * If row-oriented, values added as row; if column-oriented, value are added
+   * as column.
+   *
+   * @param values oriented values
    *
    * @return this builder
+   *
+   * @note After first set of values are added, additional sets must contain
+   * same number of values.
    */
-  def addColumn(values: Seq[String]): this.type
+  def add(values: Seq[String]): this.type
+
+  /**
+   * Adds values.
+   *
+   * If row-oriented, values added as row; if column-oriented, value are added
+   * as column.
+   *
+   * @param one  value
+   * @param more additional values
+   *
+   * @return this builder
+   *
+   * @note After first set of values are added, additional sets must contain
+   * same number of values.
+   */
+  def add(one: String, more: String*): this.type =
+    add(one +: more)
 
   /**
    * Builds and returns table.
@@ -47,4 +68,26 @@ trait TableBuilder {
    * @note Builder is reset after operation.
    */
   def build(): Table
+}
+
+/** Provides `TableBuilder` factory. */
+object TableBuilder {
+  /**
+   * Creates table builder for specified orientation.
+   *
+   * @param rowOriented indicator for row orientation
+   *
+   * @return if `rowOriented` is `true`, row-oriented builder; otherwise,
+   * column-oriented builder
+   */
+  def apply(rowOriented: Boolean = true): TableBuilder =
+    new TableBuilderImpl(rowOriented)
+
+  /** Creates row-oriented table builder. */
+  def forRows: TableBuilder =
+    apply(true)
+
+  /** Creates column-oriented table builder. */
+  def forColumns: TableBuilder =
+    apply(false)
 }
