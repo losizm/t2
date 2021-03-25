@@ -1,0 +1,9 @@
+# vim
+*.swp
+
+# sbt
+target/
+.bsp/
+
+# macOS
+.DS_Store
