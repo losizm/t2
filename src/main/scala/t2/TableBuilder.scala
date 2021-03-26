@@ -61,6 +61,30 @@ trait TableBuilder {
     add(one +: more)
 
   /**
+   * Adds sets of values.
+   *
+   * New rows are added if `isRowOriented`; otherwise, new columns are added.
+   *
+   * @param values sets of oriented values
+   *
+   * @return this builder
+   */
+  def addAll(values: Seq[Seq[String]]): this.type
+
+  /**
+   * Adds sets of values.
+   *
+   * New rows are added if `isRowOriented`; otherwise, new columns are added.
+   *
+   * @param one  set of values
+   * @param more additional sets of values
+   *
+   * @return this builder
+   */
+  def addAll(one: Seq[String], more: Seq[String]*): this.type =
+    addAll(one +: more)
+
+  /**
    * Builds and returns table.
    *
    * @note Builder is reset after operation.

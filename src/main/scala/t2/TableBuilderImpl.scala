@@ -44,6 +44,11 @@ private class TableBuilderImpl(val isRowOriented: Boolean) extends TableBuilder 
     this
   }
 
+  def addAll(values: Seq[Seq[String]]) = synchronized {
+    values.foreach(add)
+    this
+  }
+
   def build() = synchronized {
     try
       TableImpl(data.toSeq, isRowOriented)

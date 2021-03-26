@@ -33,5 +33,5 @@ class TableBuilderSpec extends org.scalatest.flatspec.AnyFlatSpec with TableData
   }
 
   private def buildTable(builder: TableBuilder, data: Seq[Seq[String]]): Table =
-    data.foldLeft(builder)(_ add _).build()
+    builder.addAll(data).build()
 }
