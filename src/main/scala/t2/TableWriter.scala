@@ -75,15 +75,15 @@ trait TableWriter {
  * |tableBorderEnabled    |`"true"`        |
  * |tableBorderChar       |`"="`           |
  * |tableBorderColor^1^   |defaultColor    |
- * |rowHeaderEnabled      |`"false"`       |
- * |rowHeaderFontColor^1^ |defaultColor    |
  * |rowSeparatorEnabled   |`"true"`        |
  * |rowSeparatorChar      |`"-"`           |
  * |rowSeparatorColor^1^  |defaultColor    |
  * |columnMaxSize         |`"20"`          |
  * |columnRightAlign^2^   |`""`            |
+ * |columnHeaderEnabled   |`"false"`       |
+ * |columnHeaderColor^1^  |defaultColor    |
  * |cellTruncateEnabled   |`"false"`       |
- * |cellFontColor^1^      |defaultColor    |
+ * |cellColor^1^          |defaultColor    |
  * |cellSpaceSize         |`"2"`           |
  * |leadSpaceSize         |`"1"`           |
  * |trailSpaceSize        |`"1"`           |

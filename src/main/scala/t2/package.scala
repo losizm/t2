@@ -20,10 +20,10 @@
  * == Getting Started ==
  *
  * Below is an example of how to use `TableBuilder` and `TableWriter`. Using
- * these utilities, it builds a `Table` and writes its content to stdout.
+ * these utilities, it builds a `Table` and writes the content to stdout.
  *
  * {{{
- * // Build table data with first row as header
+ * // Build table with first row as column header
  * val table = t2.TableBuilder()
  *   .add("Effective Date", "Currency Code", "Exchange Rate")
  *   .add("2021-01-04", "USD", "0.690236")
@@ -33,12 +33,12 @@
  *
  * // Create table writer with supplied configuration
  * val writer = t2.TableWriter(
- *   "ansiColorEnabled"   -> "true",
- *   "tableBorderColor"   -> Console.CYAN,
- *   "rowHeaderEnabled"   -> "true",
- *   "rowHeaderFontColor" -> s"\${Console.YELLOW_B}\${Console.BLACK}",
- *   "rowSeparatorColor"  -> Console.YELLOW,
- *   "columnRightAlign"   -> "2" // Right align column index 2
+ *   "ansiColorEnabled"    -> "true",
+ *   "tableBorderColor"    -> Console.CYAN,
+ *   "rowSeparatorColor"   -> Console.YELLOW,
+ *   "columnHeaderEnabled" -> "true",
+ *   "columnHeaderColor"   -> s"\${Console.YELLOW_B}\${Console.BLACK}",
+ *   "columnRightAlign"    -> "2" // Right align column index 2
  * )
  *
  * // Write table to standard output
@@ -46,7 +46,7 @@
  * }}}
  *
  * The generated output would look something like the following if printed to
- * terminal.
+ * a terminal.
  *
  * <pre style="background: black; color: white;">
  * <span style="color: #0cc;">==============================================</span>

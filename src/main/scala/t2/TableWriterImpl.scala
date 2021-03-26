@@ -24,22 +24,22 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
   private val tableBorderEnabled  = configBoolean("tableBorderEnabled", true)
   private val tableBorderChar     = configChar("tableBorderChar", "=")
   private val tableBorderColor    = configColor("tableBorderColor", defaultColor)
-  private val rowHeaderEnabled    = configBoolean("rowHeaderEnabled", false)
-  private val rowHeaderFontColor  = configColor("rowHeaderFontColor", defaultColor)
   private val rowSeparatorChar    = configChar("rowSeparatorChar", "-")
   private val rowSeparatorColor   = configColor("rowSeparatorColor", defaultColor)
   private val rowSeparatorEnabled = configBoolean("rowSeparatorEnabled", true)
+  private val columnHeaderEnabled = configBoolean("columnHeaderEnabled", false)
+  private val columnHeaderColor   = configColor("columnHeaderColor", defaultColor)
   private val columnMaxSize       = configInt("columnMaxSize", 20)
   private val columnRightAlign    = configAlignment("columnRightAlign", Set.empty)
   private val cellTruncateEnabled = configBoolean("cellTruncateEnabled", false)
-  private val cellFontColor       = configColor("cellFontColor", defaultColor)
+  private val cellColor           = configColor("cellColor", defaultColor)
   private val cellSpace           = " " * configInt("cellSpaceSize", 2)
   private val leadSpace           = " " * configInt("leadSpaceSize", 1)
   private val trailSpace          = " " * configInt("trailSpaceSize", 1)
   private val nullValue           = configString("nullValue", "")
 
   def write(out: Writer, table: Table): Unit = {
-    val header    = rowHeader(table)
+    val header    = columnHeader(table)
     val rows      = rowData(table)
     val format    = rowFormat(table)
     val size      = rowSize(table)
@@ -50,14 +50,14 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
       out.write(output("%s", border, tableBorderColor))
 
     header.foreach { row =>
-      out.write(output(format, row, rowHeaderFontColor))
+      out.write(output(format, row, columnHeaderColor))
 
       if (rowSeparatorEnabled)
         out.write(output("%s", separator, rowSeparatorColor))
     }
 
     rows.foreach { row =>
-      out.write(output(format, row, cellFontColor))
+      out.write(output(format, row, cellColor))
     }
 
     if (tableBorderEnabled)
@@ -70,11 +70,8 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
   private def output(format: String, row: Seq[String], fontColor: String): String =
     String.format(fontColor ++ format ++ resetColor ++ "%n", row.map(adjustValue) : _*)
 
-  private def rowHeader(table: Table): Option[Seq[String]] =
-    if (rowHeaderEnabled) table.rows.headOption else None
-
   private def rowData(table: Table): Seq[Seq[String]] =
-    if (rowHeaderEnabled) table.rows.tail else table.rows
+    if (columnHeaderEnabled) table.rows.tail else table.rows
 
   private def rowSize(table: Table): Int =
     columnSizes(table).sum +
@@ -91,6 +88,9 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
         else
           s"%-${size}s"
       }.mkString(leadSpace, cellSpace, trailSpace)
+
+  private def columnHeader(table: Table): Option[Seq[String]] =
+    if (columnHeaderEnabled) table.rows.headOption else None
 
   private def columnSizes(table: Table): Seq[Int] =
     table.columns.map(_.map(replaceNull(_).size).max.min(columnMaxSize))

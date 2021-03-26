@@ -13,11 +13,11 @@ libraryDependencies += "com.github.losizm" %% "t2" % "0.1.0"
 
 ## Usage
 
-Below is an example of how to use **t2**. Here a table is built, and its content
-is written to stdout.
+Below is an example of how to use **t2**. Here it builds a table and writes the
+content to stdout.
 
 ```scala
-// Build table data with first row as header
+// Build table with first row as column header
 val table = t2.TableBuilder()
   .add("Effective Date", "Currency Code", "Exchange Rate")
   .add("2021-01-04", "USD", "0.690236")
@@ -27,12 +27,12 @@ val table = t2.TableBuilder()
 
 // Create table writer with supplied configuration
 val writer = t2.TableWriter(
-  "ansiColorEnabled"   -> "true",
-  "tableBorderColor"   -> Console.CYAN,
-  "rowHeaderEnabled"   -> "true",
-  "rowHeaderFontColor" -> s"${Console.YELLOW_B}${Console.BLACK}",
-  "rowSeparatorColor"  -> Console.YELLOW,
-  "columnRightAlign"   -> "2" // Right align column index 2
+  "ansiColorEnabled"    -> "true",
+  "tableBorderColor"    -> Console.CYAN,
+  "rowSeparatorColor"   -> Console.YELLOW,
+  "columnHeaderEnabled" -> "true",
+  "columnHeaderColor"   -> s"${Console.YELLOW_B}${Console.BLACK}",
+  "columnRightAlign"    -> "2" // Right align column index 2
 )
 
 // Write table to standard output
@@ -40,7 +40,7 @@ writer.write(System.out, table)
 ```
 
 The generated output would look something like the following if printed to
-terminal.
+a terminal.
 
 ```
 ==============================================
@@ -52,9 +52,8 @@ terminal.
 ==============================================
 ```
 
-Table output can be adjusted using other configuration for such things as
-changing cell spacing, characters used for table borders and row separator, and a
-few others.
+Table output can be adjusted using configuration for such things as changing
+cell spacing, characters used for table borders and row separator, and more.
 
 ## API Documentation
 
