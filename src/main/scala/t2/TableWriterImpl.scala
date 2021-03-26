@@ -47,13 +47,13 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
     val separator = horizontalRule(size, rowSeparatorChar)
 
     if (tableBorderEnabled)
-      out.write(output("%s%n", border, tableBorderColor))
+      out.write(output("%s", border, tableBorderColor))
 
     header.foreach { row =>
       out.write(output(format, row, rowHeaderFontColor))
 
       if (rowSeparatorEnabled)
-        out.write(output("%s%n", separator, rowSeparatorColor))
+        out.write(output("%s", separator, rowSeparatorColor))
     }
 
     rows.foreach { row =>
@@ -61,14 +61,14 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
     }
 
     if (tableBorderEnabled)
-      out.write(output("%s%n", border, tableBorderColor))
+      out.write(output("%s", border, tableBorderColor))
   }
 
   private def output(format: String, row: String, fontColor: String): String =
-    String.format(fontColor ++ format ++ resetColor, row)
+    String.format(fontColor ++ format ++ resetColor ++ "%n", row)
 
   private def output(format: String, row: Seq[String], fontColor: String): String =
-    String.format(fontColor ++ format ++ resetColor, row.map(adjustValue) : _*)
+    String.format(fontColor ++ format ++ resetColor ++ "%n", row.map(adjustValue) : _*)
 
   private def rowHeader(table: Table): Option[Seq[String]] =
     if (rowHeaderEnabled) table.rows.headOption else None
@@ -90,7 +90,7 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
           s"%${size}s"
         else
           s"%-${size}s"
-      }.mkString(leadSpace, cellSpace, trailSpace ++ "%n")
+      }.mkString(leadSpace, cellSpace, trailSpace)
 
   private def columnSizes(table: Table): Seq[Int] =
     table.columns.map(_.map(replaceNull(_).size).max.min(columnMaxSize))

@@ -63,45 +63,55 @@ trait TableWriter {
   }
 }
 
-/** Provides `TableWriter` factory. */
+/**
+ * Provides `TableWriter` factory.
+ *
+ * @define writerdoc
+ *
+ * Creates table writer with supplied configuration.
+ *
+ * == Writer Configuration ==
+ *
+ * The following keys can be supplied to configure writer.
+ *
+ * |Key                   |Default Value   |
+ * |----------------------|----------------|
+ * |ansiColorEnabled      |`"false"`       |
+ * |defaultColor^1^       |`Console.RESET` |
+ * |tableBorderEnabled    |`"true"`        |
+ * |tableBorderChar       |`"="`           |
+ * |tableBorderColor^1^   |defaultColor    |
+ * |rowHeaderEnabled      |`"false"`       |
+ * |rowHeaderFontColor^1^ |defaultColor    |
+ * |rowSeparatorEnabled   |`"true"`        |
+ * |rowSeparatorChar      |`"-"`           |
+ * |rowSeparatorColor^1^  |defaultColor    |
+ * |columnMaxSize         |`"20"`          |
+ * |columnRightAlign^2^   |`""`            |
+ * |cellTruncateEnabled   |`"false"`       |
+ * |cellFontColor^1^      |defaultColor    |
+ * |cellSpaceSize         |`"2"`           |
+ * |leadSpaceSize         |`"1"`           |
+ * |trailSpaceSize        |`"1"`           |
+ * |nullValue             |`""`            |
+ * <span></span>
+ *
+ * ^1^ Defined as `AnsiColor` value; also accepts values `"black"`, `"red"`,
+ * `"green"`, `"yellow"`, `"blue"`, `"magenta"`, `"cyan"`, and `"white"`.
+ *
+ * ^2^ Defined as comma-delimited list of column indexes.
+ */
 object TableWriter {
-  /** Creates table writer with default configuration. */
-  def apply(): TableWriter =
-    apply(Map.empty)
+  /**
+   * $writerdoc
+   *
+   * @param config writer configuration
+   */
+  def apply(config: (String, String)*): TableWriter =
+    apply(config.toMap)
 
   /**
-   * Creates table writer with supplied configuration.
-   *
-   * == Writer Configuration ==
-   *
-   * The following keys can be supplied to configure writer.
-   *
-   * |Key                   |Default Value   |
-   * |----------------------|----------------|
-   * |ansiColorEnabled      |`"false"`       |
-   * |defaultColor^1^       |`Console.RESET` |
-   * |tableBorderEnabled    |`"true"`        |
-   * |tableBorderChar       |`"="`           |
-   * |tableBorderColor^1^   |defaultColor    |
-   * |rowHeaderEnabled      |`"false"`       |
-   * |rowHeaderFontColor^1^ |defaultColor    |
-   * |rowSeparatorEnabled   |`"true"`        |
-   * |rowSeparatorChar      |`"-"`           |
-   * |rowSeparatorColor^1^  |defaultColor    |
-   * |columnMaxSize         |`"20"`          |
-   * |columnRightAlign^2^   |`""`            |
-   * |cellTruncateEnabled   |`"false"`       |
-   * |cellFontColor^1^      |defaultColor    |
-   * |cellSpaceSize         |`"2"`           |
-   * |leadSpaceSize         |`"1"`           |
-   * |trailSpaceSize        |`"1"`           |
-   * |nullValue             |`""`            |
-   * <span></span>
-   *
-   * ^1^ Defined as `AnsiColor` value; also accepts values `"black"`, `"red"`,
-   * `"green"`, `"yellow"`, `"blue"`, `"magenta"`, `"cyan"`, and `"white"`.
-   *
-   * ^2^ Defined as comma-delimited list of column indexes.
+   * $writerdoc
    *
    * @param config writer configuration
    */
