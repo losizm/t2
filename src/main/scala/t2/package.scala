@@ -14,5 +14,51 @@
  * limitations under the License.
  */
 
-/** Defines core types. */
+/**
+ * Defines core types.
+ *
+ * == Getting Started ==
+ *
+ * Below is an example of how to use `TableBuilder` and `TableWriter`. Using
+ * these utilities, it builds a `Table` and writes its content to stdout.
+ *
+ * {{{
+ * // Build table data with first row as header
+ * val table = t2.TableBuilder()
+ *   .add("Effective Date", "Currency Code", "Exchange Rate")
+ *   .add("2021-01-04", "USD", "0.690236")
+ *   .add("2021-01-05", "USD", "0.690627")
+ *   .add("2021-01-06", "USD", "0.689332")
+ *   .build()
+ *
+ * // Create table writer with supplied configuration
+ * val writer = t2.TableWriter(
+ *   "ansiColorEnabled"   -> "true",
+ *   "tableBorderColor"   -> Console.CYAN,
+ *   "rowHeaderEnabled"   -> "true",
+ *   "rowHeaderFontColor" -> s"\${Console.YELLOW_B}\${Console.BLACK}",
+ *   "rowSeparatorColor"  -> Console.YELLOW,
+ *   "columnRightAlign"   -> "2" // Right align column index 2
+ * )
+ *
+ * // Write table to standard output
+ * writer.write(System.out, table)
+ * }}}
+ *
+ * The generated output would look something like the following if printed to
+ * terminal.
+ *
+ * <pre style="background: black; color: white;">
+ * <span style="color: #0cc;">==============================================</span>
+ * <span style="background: #cc0; color: black;"> Effective Date  Currency Code  Exchange Rate </span>
+ * <span style="color: #cc0;">----------------------------------------------</span>
+ *  2021-01-04      USD                 0.690236
+ *  2021-01-05      USD                 0.690627
+ *  2021-01-06      USD                 0.689332
+ * <span style="color: #0cc;">==============================================</span>
+ * </pre>
+ *
+ * Table output can be adjusted using configuration for such things as changing
+ * cell spacing, characters used for table borders and row separator, and more.
+ */
 package object t2

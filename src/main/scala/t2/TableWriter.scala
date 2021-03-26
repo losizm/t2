@@ -22,23 +22,17 @@ import java.io.{ OutputStream, PrintWriter, Writer }
  *
  * == Sample Output ==
  *
- * The following is sample output for default table writer.
+ * Output generated using the default table writer would look something like the
+ * following if printed to a terminal.
  *
- * <pre>
- * ============================================================================
- *  Effective Date  Day Of Week  Currency Code  SDR Per Unit  Percent Variance 
- * ----------------------------------------------------------------------------
- *  2021-01-05      Tue          CAD                0.543502              0.40 
- *  2021-01-05      Tue          EUR                0.847472             -0.15 
- *  2021-01-05      Tue          GBP                0.938667             -0.52 
- *  2021-01-05      Tue          INR                0.009447             -0.07 
- *  2021-01-05      Tue          USD                0.690627              0.06 
- *  2021-01-06      Wed          CAD                0.543422             -0.01 
- *  2021-01-06      Wed          EUR                0.850499              0.36 
- *  2021-01-06      Wed          GBP                0.940831              0.23 
- *  2021-01-06      Wed          INR                0.009425             -0.23 
- *  2021-01-06      Wed          USD                0.689332             -0.19 
- * ============================================================================
+ * <pre style="background: black; color: white;">
+ * ==============================================
+ *  Effective Date  Currency Code  Exchange Rate
+ * ----------------------------------------------
+ *  2021-01-04      USD                 0.690236
+ *  2021-01-05      USD                 0.690627
+ *  2021-01-06      USD                 0.689332
+ * ==============================================
  * </pre>
  */
 trait TableWriter {
