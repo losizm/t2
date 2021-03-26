@@ -22,19 +22,21 @@ class TableWriterSpec extends org.scalatest.flatspec.AnyFlatSpec {
   val config = Map(
     "ansiColorEnabled"    -> "true",
     "fontColor"           -> "blue",
+    "tableBorderEnabled"  -> "true",
     "tableBorderChar"     -> "x",
     "tableBorderColor"    -> "red",
-    "rowHeaderIncluded"   -> "true",
+    "rowHeaderEnabled"    -> "true",
+    "rowSeparatorEnabled" -> "true",
     "rowSeparatorChar"    -> "o",
     "rowSeparatorColor"   -> "yellow",
     "rowHeaderFontColor"  -> s"${Console.BOLD}${Console.YELLOW_B}${Console.BLACK}",
     "columnMaxSize"       -> "20",
     "columnRightAlign"    -> "3,4",
+    "cellTruncateEnabled" -> "true",
     "cellSpaceSize"       -> "4",
     "leadSpaceSize"       -> "1",
     "trailSpaceSize"      -> "1",
-    "nullValue"           -> " ",
-    "truncateCellValue"   -> "true"
+    "nullValue"           -> " "
   )
 
   val rowHeader = Seq("Effective Date", "Day Of Week", "Currency Code", "SDR Per Unit", "Percent Variance")

@@ -18,22 +18,24 @@ package t2
 import java.io.Writer
 
 private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
-  private val ansiColorEnabled   = configBoolean("ansiColorEnabled", false)
-  private val resetColor         = if (ansiColorEnabled) Console.RESET else ""
-  private val fontColor          = configColor("fontColor", resetColor)
-  private val tableBorderChar    = configChar("tableBorderChar", "=")
-  private val tableBorderColor   = configColor("tableBorderColor", resetColor)
-  private val rowHeaderIncluded  = configBoolean("rowHeaderIncluded", false)
-  private val rowHeaderFontColor = configColor("rowHeaderFontColor", resetColor)
-  private val rowSeparatorChar   = configChar("rowSeparatorChar", "-")
-  private val rowSeparatorColor  = configColor("rowSeparatorColor", resetColor)
-  private val columnMaxSize      = configInt("columnMaxSize", 20)
-  private val columnRightAlign   = configAlignment("columnRightAlign", Set.empty)
-  private val cellSpace          = " " * configInt("cellSpaceSize", 2)
-  private val leadSpace          = " " * configInt("leadSpaceSize", 1)
-  private val trailSpace         = " " * configInt("trailSpaceSize", 1)
-  private val nullValue          = configString("nullValue", "")
-  private val truncateCellValue  = configBoolean("truncateCellValue", false)
+  private val ansiColorEnabled    = configBoolean("ansiColorEnabled", false)
+  private val resetColor          = if (ansiColorEnabled) Console.RESET else ""
+  private val fontColor           = configColor("fontColor", resetColor)
+  private val tableBorderEnabled  = configBoolean("tableBorderEnabled", true)
+  private val tableBorderChar     = configChar("tableBorderChar", "=")
+  private val tableBorderColor    = configColor("tableBorderColor", resetColor)
+  private val rowHeaderEnabled    = configBoolean("rowHeaderEnabled", false)
+  private val rowHeaderFontColor  = configColor("rowHeaderFontColor", resetColor)
+  private val rowSeparatorChar    = configChar("rowSeparatorChar", "-")
+  private val rowSeparatorColor   = configColor("rowSeparatorColor", resetColor)
+  private val rowSeparatorEnabled = configBoolean("rowSeparatorEnabled", true)
+  private val columnMaxSize       = configInt("columnMaxSize", 20)
+  private val columnRightAlign    = configAlignment("columnRightAlign", Set.empty)
+  private val cellTruncateEnabled = configBoolean("cellTruncateEnabled", false)
+  private val cellSpace           = " " * configInt("cellSpaceSize", 2)
+  private val leadSpace           = " " * configInt("leadSpaceSize", 1)
+  private val trailSpace          = " " * configInt("trailSpaceSize", 1)
+  private val nullValue           = configString("nullValue", "")
 
   def write(out: Writer, table: Table): Unit = {
     val header    = rowHeader(table)
@@ -43,18 +45,22 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
     val border    = horizontalRule(size, tableBorderChar)
     val separator = horizontalRule(size, rowSeparatorChar)
 
-    out.write(output("%s%n", border, tableBorderColor))
+    if (tableBorderEnabled)
+      out.write(output("%s%n", border, tableBorderColor))
 
     header.foreach { row =>
       out.write(output(format, row, rowHeaderFontColor))
-      out.write(output("%s%n", separator, rowSeparatorColor))
+
+      if (rowSeparatorEnabled)
+        out.write(output("%s%n", separator, rowSeparatorColor))
     }
 
     rows.foreach { row =>
       out.write(output(format, row, fontColor))
     }
 
-    out.write(output("%s%n", border, tableBorderColor))
+    if (tableBorderEnabled)
+      out.write(output("%s%n", border, tableBorderColor))
   }
 
   private def output(format: String, row: String, fontColor: String): String =
@@ -64,10 +70,10 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
     String.format(fontColor ++ format ++ resetColor, row.map(adjustValue) : _*)
 
   private def rowHeader(table: Table): Option[Seq[String]] =
-    if (rowHeaderIncluded) table.rows.headOption else None
+    if (rowHeaderEnabled) table.rows.headOption else None
 
   private def rowData(table: Table): Seq[Seq[String]] =
-    if (rowHeaderIncluded) table.rows.tail else table.rows
+    if (rowHeaderEnabled) table.rows.tail else table.rows
 
   private def rowSize(table: Table): Int =
     columnSizes(table).sum +
@@ -92,7 +98,7 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
     char * size
 
   private def adjustValue(value: String): String =
-    truncateCellValue match {
+    cellTruncateEnabled match {
       case true  => replaceNull(value).take(columnMaxSize)
       case false => replaceNull(value)
     }

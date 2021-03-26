@@ -79,25 +79,28 @@ object TableWriter {
    * |Key                   |Default Value   |
    * |----------------------|----------------|
    * |ansiColorEnabled      |`"false"`       |
-   * |fontColor^*^          |`Console.RESET` |
+   * |fontColor^1^          |`Console.RESET` |
+   * |tableBorderEnabled    |`"true"`        |
    * |tableBorderChar       |`"="`           |
-   * |tableBorderColor^*^   |`Console.RESET` |
-   * |rowHeaderIncluded     |`"false"`       |
-   * |rowHeaderFontColor^*^ |`Console.RESET` |
+   * |tableBorderColor^1^   |`Console.RESET` |
+   * |rowHeaderEnabled      |`"false"`       |
+   * |rowHeaderFontColor^1^ |`Console.RESET` |
+   * |rowSeparatorEnabled   |`"true"`        |
    * |rowSeparatorChar      |`"-"`           |
-   * |rowSeparatorColor^*^  |`Console.RESET` |
+   * |rowSeparatorColor^1^  |`Console.RESET` |
    * |columnMaxSize         |`"20"`          |
-   * |columnRightAlign      |`""`            |
+   * |columnRightAlign^2^   |`""`            |
+   * |cellTruncateEnabled   |`"false"`       |
    * |cellSpaceSize         |`"2"`           |
    * |leadSpaceSize         |`"1"`           |
    * |trailSpaceSize        |`"1"`           |
    * |nullValue             |`""`            |
-   * |truncateCellValue     |`"false"`       |
    * <span></span>
    *
-   * ^*^ Color should be supplied as `AnsiColor` value. It can also be supplied
-   * as `"black"`, `"red"`, `"green"`, `"yellow"`, `"blue"`, `"magenta"`,
-   * `"cyan"`, or `"white"`.
+   * ^1^ Defined as `AnsiColor` value; also accepts values `"black"`, `"red"`,
+   * `"green"`, `"yellow"`, `"blue"`, `"magenta"`, `"cyan"`, and `"white"`.
+   *
+   * ^2^ Defined as comma-delimited list of column indexes.
    *
    * @param config writer configuration
    */
