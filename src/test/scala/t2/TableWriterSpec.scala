@@ -21,7 +21,7 @@ import java.io.StringWriter
 class TableWriterSpec extends org.scalatest.flatspec.AnyFlatSpec {
   val config = Map(
     "ansiColorEnabled"    -> "true",
-    "fontColor"           -> "blue",
+    "defaultColor"        -> "white",
     "tableBorderEnabled"  -> "true",
     "tableBorderChar"     -> "x",
     "tableBorderColor"    -> "red",
@@ -33,6 +33,7 @@ class TableWriterSpec extends org.scalatest.flatspec.AnyFlatSpec {
     "columnMaxSize"       -> "20",
     "columnRightAlign"    -> "3,4",
     "cellTruncateEnabled" -> "true",
+    "cellFontColor"       -> "blue",
     "cellSpaceSize"       -> "4",
     "leadSpaceSize"       -> "1",
     "trailSpaceSize"      -> "1",

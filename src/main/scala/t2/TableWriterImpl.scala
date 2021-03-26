@@ -20,18 +20,19 @@ import java.io.Writer
 private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
   private val ansiColorEnabled    = configBoolean("ansiColorEnabled", false)
   private val resetColor          = if (ansiColorEnabled) Console.RESET else ""
-  private val fontColor           = configColor("fontColor", resetColor)
+  private val defaultColor        = configColor("defaultColor", resetColor)
   private val tableBorderEnabled  = configBoolean("tableBorderEnabled", true)
   private val tableBorderChar     = configChar("tableBorderChar", "=")
-  private val tableBorderColor    = configColor("tableBorderColor", resetColor)
+  private val tableBorderColor    = configColor("tableBorderColor", defaultColor)
   private val rowHeaderEnabled    = configBoolean("rowHeaderEnabled", false)
-  private val rowHeaderFontColor  = configColor("rowHeaderFontColor", resetColor)
+  private val rowHeaderFontColor  = configColor("rowHeaderFontColor", defaultColor)
   private val rowSeparatorChar    = configChar("rowSeparatorChar", "-")
-  private val rowSeparatorColor   = configColor("rowSeparatorColor", resetColor)
+  private val rowSeparatorColor   = configColor("rowSeparatorColor", defaultColor)
   private val rowSeparatorEnabled = configBoolean("rowSeparatorEnabled", true)
   private val columnMaxSize       = configInt("columnMaxSize", 20)
   private val columnRightAlign    = configAlignment("columnRightAlign", Set.empty)
   private val cellTruncateEnabled = configBoolean("cellTruncateEnabled", false)
+  private val cellFontColor       = configColor("cellFontColor", defaultColor)
   private val cellSpace           = " " * configInt("cellSpaceSize", 2)
   private val leadSpace           = " " * configInt("leadSpaceSize", 1)
   private val trailSpace          = " " * configInt("trailSpaceSize", 1)
@@ -56,7 +57,7 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
     }
 
     rows.foreach { row =>
-      out.write(output(format, row, fontColor))
+      out.write(output(format, row, cellFontColor))
     }
 
     if (tableBorderEnabled)

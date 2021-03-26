@@ -79,18 +79,19 @@ object TableWriter {
    * |Key                   |Default Value   |
    * |----------------------|----------------|
    * |ansiColorEnabled      |`"false"`       |
-   * |fontColor^1^          |`Console.RESET` |
+   * |defaultColor^1^       |`Console.RESET` |
    * |tableBorderEnabled    |`"true"`        |
    * |tableBorderChar       |`"="`           |
-   * |tableBorderColor^1^   |`Console.RESET` |
+   * |tableBorderColor^1^   |defaultColor    |
    * |rowHeaderEnabled      |`"false"`       |
-   * |rowHeaderFontColor^1^ |`Console.RESET` |
+   * |rowHeaderFontColor^1^ |defaultColor    |
    * |rowSeparatorEnabled   |`"true"`        |
    * |rowSeparatorChar      |`"-"`           |
-   * |rowSeparatorColor^1^  |`Console.RESET` |
+   * |rowSeparatorColor^1^  |defaultColor    |
    * |columnMaxSize         |`"20"`          |
    * |columnRightAlign^2^   |`""`            |
    * |cellTruncateEnabled   |`"false"`       |
+   * |cellFontColor^1^      |defaultColor    |
    * |cellSpaceSize         |`"2"`           |
    * |leadSpaceSize         |`"1"`           |
    * |trailSpaceSize        |`"1"`           |
