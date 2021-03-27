@@ -49,6 +49,11 @@ private class TableBuilderImpl(val isRowOriented: Boolean) extends TableBuilder 
     this
   }
 
+  def reset() = synchronized {
+    data.clear()
+    this
+  }
+
   def build() = synchronized {
     try
       TableImpl(data.toSeq, isRowOriented)

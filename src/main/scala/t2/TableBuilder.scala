@@ -103,9 +103,18 @@ trait TableBuilder {
     addAll(one +: more)
 
   /**
-   * Builds and returns table.
+   * Resets builder.
    *
-   * @note Builder is reset after operation.
+   * All accumulated values are discarded.
+   *
+   * @return this builder
+   */
+  def reset(): this.type
+
+  /**
+   * Builds table using accumulated values.
+   *
+   * @note Builder is reset after building table.
    */
   def build(): Table
 }

@@ -17,11 +17,25 @@ package t2
 
 class TableBuilderSpec extends org.scalatest.flatspec.AnyFlatSpec with TableData {
   it should "create row-oriented table" in {
-    check(buildTable(TableBuilder.forRows, goodRows))
+    val builder = TableBuilder.forRows
+    check(buildTable(builder, goodRows))
+    assert(builder.rowCount + builder.columnCount == 0)
   }
 
   it should "create column-oriented table" in {
-    check(buildTable(TableBuilder.forColumns, goodColumns))
+    val builder = TableBuilder.forColumns
+    check(buildTable(builder, goodColumns))
+    assert(builder.rowCount + builder.columnCount == 0)
+  }
+
+  it should "reset builder after adding rows" in {
+    val builder = TableBuilder.forRows.addAll(goodRows).reset()
+    assert(builder.rowCount + builder.columnCount == 0)
+  }
+
+  it should "reset builder after adding columns" in {
+    val builder = TableBuilder.forColumns.addAll(goodRows).reset()
+    assert(builder.rowCount + builder.columnCount == 0)
   }
 
   it should "not create row-oriented table with inconsistent data" in {
