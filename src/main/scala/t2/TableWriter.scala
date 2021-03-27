@@ -80,11 +80,10 @@ trait TableWriter {
  * |rowSeparatorEnabled   |`"true"`        |
  * |rowSeparatorChar      |`"-"`           |
  * |rowSeparatorColor^1^  |defaultColor    |
- * |columnMaxSize         |`"20"`          |
  * |columnRightAlign^2^   |`""`            |
  * |columnHeaderEnabled   |`"false"`       |
  * |columnHeaderColor^1^  |defaultColor    |
- * |cellTruncateEnabled   |`"false"`       |
+ * |maxValueSize          |`"20"`          |
  * |cellColor^1^          |defaultColor    |
  * |cellSpaceSize         |`"2"`           |
  * |leadSpaceSize         |`"1"`           |

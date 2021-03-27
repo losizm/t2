@@ -34,11 +34,11 @@ class TableWriterSpec extends org.scalatest.flatspec.AnyFlatSpec {
     "columnHeaderColor"   -> s"${Console.BOLD}${Console.YELLOW_B}${Console.BLACK}",
     "columnMaxSize"       -> "20",
     "columnRightAlign"    -> "0,4,5",
-    "cellTruncateEnabled" -> "true",
     "cellColor"           -> s"${Console.WHITE_B}${Console.BLUE}",
     "cellSpaceSize"       -> "4",
     "leadSpaceSize"       -> "1",
     "trailSpaceSize"      -> "1",
+    "maxValueSize"        -> "6",
     "nullValue"           -> " "
   )
 

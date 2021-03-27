@@ -31,9 +31,8 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
   private val rowSeparatorEnabled = configBoolean("rowSeparatorEnabled", true)
   private val columnHeaderEnabled = configBoolean("columnHeaderEnabled", false)
   private val columnHeaderColor   = configColor("columnHeaderColor", defaultColor)
-  private val columnMaxSize       = configInt("columnMaxSize", 20)
   private val columnRightAlign    = configAlignment("columnRightAlign", Set.empty)
-  private val cellTruncateEnabled = configBoolean("cellTruncateEnabled", false)
+  private val maxValueSize        = configInt("maxValueSize", 20)
   private val cellColor           = configColor("cellColor", defaultColor)
   private val cellSpace           = " " * configInt("cellSpaceSize", 2)
   private val leadSpace           = " " * configInt("leadSpaceSize", 1)
@@ -120,21 +119,15 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
   }
 
   private def columnSizes(table: Table): Seq[Int] =
-    table.columns.map(_.map(replaceNull(_).size).max.min(columnMaxSize))
+    table.columns.map(_.map(replaceNull(_).size).max.min(maxValueSize))
 
   private def horizontalRule(size: Int, char: String): String =
     char * size
 
   private def adjustValue(value: String): String =
-    cellTruncateEnabled match {
-      case true  => replaceNull(value).take(columnMaxSize)
-      case false => replaceNull(value)
-    }
+    replaceNull(value).take(maxValueSize)
 
   private def replaceNull(value: String): String =
-    if (value == null) nullValue else value
-
-  private def truncateValue(value: String): String =
     if (value == null) nullValue else value
 
   private def configString(name: String, default: => String): String =
