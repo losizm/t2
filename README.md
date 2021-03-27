@@ -8,7 +8,7 @@ Utility for text tables.
 To use **t2**, add it as a dependency to your project:
 
 ```scala
-libraryDependencies += "com.github.losizm" %% "t2" % "0.1.0"
+libraryDependencies += "com.github.losizm" %% "t2" % "0.2.0"
 ```
 
 ## Usage
