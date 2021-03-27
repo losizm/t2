@@ -25,20 +25,21 @@
  * {{{
  * // Build table with first row as column header
  * val table = t2.TableBuilder()
- *   .add("Effective Date", "Currency Code", "Exchange Rate")
- *   .add("2021-01-04", "USD", "0.690236")
- *   .add("2021-01-05", "USD", "0.690627")
- *   .add("2021-01-06", "USD", "0.689332")
+ *   .add("#", "Effective Date", "Currency Code", "Exchange Rate")
+ *   .add("1", "2021-01-04", "USD", "0.690236")
+ *   .add("2", "2021-01-05", "USD", "0.690627")
+ *   .add("3", "2021-01-06", "USD", "0.689332")
  *   .build()
  *
  * // Create table writer with supplied configuration
  * val writer = t2.TableWriter(
  *   "ansiColorEnabled"    -> "true",
  *   "tableBorderColor"    -> Console.CYAN,
+ *   "rowHeaderEnabled"    -> "true",
+ *   "rowHeaderColor"      -> (Console.BOLD ++ Console.CYAN),
  *   "rowSeparatorColor"   -> Console.YELLOW,
- *   "columnHeaderEnabled" -> "true",
- *   "columnHeaderColor"   -> s"\${Console.YELLOW_B}\${Console.BLACK}",
- *   "columnRightAlign"    -> "2" // Right align column index 2
+ *   "columnHeaderColor"   -> (Console.YELLOW_B ++ Console.BLACK),
+ *   "columnRightAlign"    -> "0,3" // Right align first and last columns
  * )
  *
  * // Write table to standard output
@@ -49,13 +50,13 @@
  * a terminal.
  *
  * <pre style="background: black; color: white;">
- * <span style="color: #0cc;">==============================================</span>
- * <span style="background: #cc0; color: black;"> Effective Date  Currency Code  Exchange Rate </span>
- * <span style="color: #cc0;">----------------------------------------------</span>
- *  2021-01-04      USD                 0.690236
- *  2021-01-05      USD                 0.690627
- *  2021-01-06      USD                 0.689332
- * <span style="color: #0cc;">==============================================</span>
+ * <span style="color: #0cc;">===================================================</span>
+ * <span style="background: #cc0; color: black;">  #  Effective Date  Currency Code  Exchange Rate  </span>
+ * <span style="color: #cc0;">---------------------------------------------------</span>
+ * <span style="color: #0cc; font-weight: bold;">  1 </span> 2021-01-04      USD                 0.690236
+ * <span style="color: #0cc; font-weight: bold;">  2 </span> 2021-01-05      USD                 0.690627
+ * <span style="color: #0cc; font-weight: bold;">  3 </span> 2021-01-06      USD                 0.689332
+ * <span style="color: #0cc;">===================================================</span>
  * </pre>
  *
  * Table output can be adjusted using configuration for such things as changing

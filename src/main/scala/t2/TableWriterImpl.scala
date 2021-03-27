@@ -29,7 +29,7 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
   private val rowSeparatorChar    = configChar("rowSeparatorChar", "-")
   private val rowSeparatorColor   = configColor("rowSeparatorColor", defaultColor)
   private val rowSeparatorEnabled = configBoolean("rowSeparatorEnabled", true)
-  private val columnHeaderEnabled = configBoolean("columnHeaderEnabled", false)
+  private val columnHeaderEnabled = configBoolean("columnHeaderEnabled", true)
   private val columnHeaderColor   = configColor("columnHeaderColor", defaultColor)
   private val columnRightAlign    = configAlignment("columnRightAlign", Set.empty)
   private val maxValueSize        = configInt("maxValueSize", 20)

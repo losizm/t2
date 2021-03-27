@@ -13,26 +13,27 @@ libraryDependencies += "com.github.losizm" %% "t2" % "0.1.0"
 
 ## Usage
 
-Below is an example of how to use **t2**. Here it builds a table and writes the
+Below is an example of **t2** in action. Here it builds a table and writes the
 content to stdout.
 
 ```scala
 // Build table with first row as column header
 val table = t2.TableBuilder()
-  .add("Effective Date", "Currency Code", "Exchange Rate")
-  .add("2021-01-04", "USD", "0.690236")
-  .add("2021-01-05", "USD", "0.690627")
-  .add("2021-01-06", "USD", "0.689332")
+  .add("#", "Effective Date", "Currency Code", "Exchange Rate")
+  .add("1", "2021-01-04", "USD", "0.690236")
+  .add("2", "2021-01-05", "USD", "0.690627")
+  .add("3", "2021-01-06", "USD", "0.689332")
   .build()
 
 // Create table writer with supplied configuration
 val writer = t2.TableWriter(
   "ansiColorEnabled"    -> "true",
   "tableBorderColor"    -> Console.CYAN,
+  "rowHeaderEnabled"    -> "true",
+  "rowHeaderColor"      -> (Console.BOLD ++ Console.CYAN),
   "rowSeparatorColor"   -> Console.YELLOW,
-  "columnHeaderEnabled" -> "true",
-  "columnHeaderColor"   -> s"${Console.YELLOW_B}${Console.BLACK}",
-  "columnRightAlign"    -> "2" // Right align column index 2
+  "columnHeaderColor"   -> (Console.YELLOW_B ++ Console.BLACK),
+  "columnRightAlign"    -> "0,3" // Right align first and last columns
 )
 
 // Write table to standard output
@@ -43,13 +44,13 @@ The generated output would look something like the following if printed to
 a terminal.
 
 ```
-==============================================
- Effective Date  Currency Code  Exchange Rate
-----------------------------------------------
- 2021-01-04      USD                 0.690236
- 2021-01-05      USD                 0.690627
- 2021-01-06      USD                 0.689332
-==============================================
+===================================================
+  #  Effective Date  Currency Code  Exchange Rate
+---------------------------------------------------
+  1  2021-01-04      USD                 0.690236
+  2  2021-01-05      USD                 0.690627
+  3  2021-01-06      USD                 0.689332
+===================================================
 ```
 
 Table output can be adjusted using configuration for such things as changing

@@ -26,13 +26,13 @@ import java.io.{ OutputStream, PrintWriter, Writer }
  * following if printed to a terminal.
  *
  * <pre style="background: black; color: white;">
- * ==============================================
- *  Effective Date  Currency Code  Exchange Rate
- * ----------------------------------------------
- *  2021-01-04      USD                 0.690236
- *  2021-01-05      USD                 0.690627
- *  2021-01-06      USD                 0.689332
- * ==============================================
+ * ===================================================
+ *   #  Effective Date  Currency Code  Exchange Rate
+ * ---------------------------------------------------
+ *   1  2021-01-04      USD            0.690236
+ *   2  2021-01-05      USD            0.690627
+ *   3  2021-01-06      USD            0.689332
+ * ===================================================
  * </pre>
  */
 trait TableWriter {
@@ -81,7 +81,7 @@ trait TableWriter {
  * |rowSeparatorChar      |`"-"`           |
  * |rowSeparatorColor^1^  |defaultColor    |
  * |columnRightAlign^2^   |`""`            |
- * |columnHeaderEnabled   |`"false"`       |
+ * |columnHeaderEnabled   |`"true"`        |
  * |columnHeaderColor^1^  |defaultColor    |
  * |maxValueSize          |`"20"`          |
  * |cellColor^1^          |defaultColor    |
