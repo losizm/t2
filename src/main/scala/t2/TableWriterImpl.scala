@@ -34,9 +34,9 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
   private val columnRightAlign    = configAlignment("columnRightAlign", Set.empty)
   private val maxValueSize        = configInt("maxValueSize", 20)
   private val cellColor           = configColor("cellColor", defaultColor)
-  private val cellSpace           = " " * configInt("cellSpaceSize", 2)
-  private val leadSpace           = " " * configInt("leadSpaceSize", 1)
-  private val trailSpace          = " " * configInt("trailSpaceSize", 1)
+  private val cellPad             = " " * configInt("cellPadSize", 1)
+  private val firstPad            = " " * configInt("firstPadSize", 1)
+  private val lastPad             = " " * configInt("lastPadSize", 1)
   private val nullValue           = configString("nullValue", "")
 
   def write(out: Writer, table: Table): Unit = {
@@ -80,9 +80,9 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
 
   private def rowSize(table: Table): Int =
     columnSizes(table).sum +
-      leadSpace.size +
-      trailSpace.size +
-      ((table.columnCount - 1) * cellSpace.size)
+      firstPad.size +
+      lastPad.size +
+      (table.columnCount * (cellPad.size * 2))
 
   private def headerFormat(table: Table): String =
     columnSizes(table)
@@ -90,11 +90,11 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
       .map {
         case (size, index) =>
           if (columnRightAlign.contains(index))
-            s"%${size}s"
+            s"${cellPad}%${size}s${cellPad}"
           else
-            s"%-${size}s"
+            s"${cellPad}%-${size}s${cellPad}"
 
-      }.mkString(columnHeaderColor ++ leadSpace, cellSpace, trailSpace ++ resetColor)
+      }.mkString(columnHeaderColor ++ firstPad, "", lastPad ++ resetColor)
 
   private def bodyFormat(table: Table): String = {
     val leadColor  = if (rowHeaderEnabled) rowHeaderColor else cellColor
@@ -105,17 +105,17 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
       .map {
         case (size, 0)  =>
           if (columnRightAlign.contains(0))
-            s"%${size}s${trailColor}"
+            s"${cellPad}%${size}s${cellPad}${trailColor}"
           else
-            s"%-${size}s${trailColor}"
+            s"${cellPad}%-${size}s${cellPad}${trailColor}"
 
         case (size, index) =>
           if (columnRightAlign.contains(index))
-            s"%${size}s"
+            s"${cellPad}%${size}s${cellPad}"
           else
-            s"%-${size}s"
+            s"${cellPad}%-${size}s${cellPad}"
 
-      }.mkString(leadColor ++ leadSpace, cellSpace, trailSpace ++ resetColor)
+      }.mkString(leadColor ++ firstPad, "", lastPad ++ resetColor)
   }
 
   private def columnSizes(table: Table): Seq[Int] =

@@ -53,7 +53,7 @@ a terminal.
 ```
 
 Table output can be adjusted using configuration for such things as changing
-cell spacing, characters used for table borders and row separator, and more.
+cell padding, characters used for table borders and row separator, and more.
 
 ## API Documentation
 

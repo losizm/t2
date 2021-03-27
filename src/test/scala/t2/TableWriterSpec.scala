@@ -35,10 +35,10 @@ class TableWriterSpec extends org.scalatest.flatspec.AnyFlatSpec {
     "columnMaxSize"       -> "20",
     "columnRightAlign"    -> "0,4,5",
     "cellColor"           -> s"${Console.WHITE_B}${Console.BLUE}",
-    "cellSpaceSize"       -> "4",
-    "leadSpaceSize"       -> "1",
-    "trailSpaceSize"      -> "1",
-    "maxValueSize"        -> "6",
+    "cellPadSize"         -> "2",
+    "firstPadSize"        -> "4",
+    "lastPadSize"         -> "1",
+    "maxValueSize"        -> "16",
     "nullValue"           -> " "
   )
 

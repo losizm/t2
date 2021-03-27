@@ -85,9 +85,9 @@ trait TableWriter {
  * |columnHeaderColor^1^  |defaultColor    |
  * |maxValueSize          |`"20"`          |
  * |cellColor^1^          |defaultColor    |
- * |cellSpaceSize         |`"2"`           |
- * |leadSpaceSize         |`"1"`           |
- * |trailSpaceSize        |`"1"`           |
+ * |cellPadSize           |`"1"`           |
+ * |firstPadSize          |`"1"`           |
+ * |lastPadSize           |`"1"`           |
  * |nullValue             |`""`            |
  * <span></span>
  *
