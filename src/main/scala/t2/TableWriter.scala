@@ -75,6 +75,8 @@ trait TableWriter {
  * |tableBorderEnabled    |`"true"`        |
  * |tableBorderChar       |`"="`           |
  * |tableBorderColor^1^   |defaultColor    |
+ * |rowHeaderEnabled      |`"false"`       |
+ * |rowHeaderColor^1^     |defaultColor    |
  * |rowSeparatorEnabled   |`"true"`        |
  * |rowSeparatorChar      |`"-"`           |
  * |rowSeparatorColor^1^  |defaultColor    |

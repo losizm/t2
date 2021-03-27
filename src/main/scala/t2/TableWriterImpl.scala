@@ -24,6 +24,8 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
   private val tableBorderEnabled  = configBoolean("tableBorderEnabled", true)
   private val tableBorderChar     = configChar("tableBorderChar", "=")
   private val tableBorderColor    = configColor("tableBorderColor", defaultColor)
+  private val rowHeaderEnabled    = configBoolean("rowHeaderEnabled", false)
+  private val rowHeaderColor      = configColor("rowHeaderColor", defaultColor)
   private val rowSeparatorChar    = configChar("rowSeparatorChar", "-")
   private val rowSeparatorColor   = configColor("rowSeparatorColor", defaultColor)
   private val rowSeparatorEnabled = configBoolean("rowSeparatorEnabled", true)
@@ -39,10 +41,11 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
   private val nullValue           = configString("nullValue", "")
 
   def write(out: Writer, table: Table): Unit = {
-    val header    = columnHeader(table)
-    val rows      = rowData(table)
-    val format    = rowFormat(table)
+    val header    = headerRow(table)
+    val body      = bodyRows(table)
     val size      = rowSize(table)
+    val headerFmt = headerFormat(table)
+    val bodyFmt   = bodyFormat(table)
     val border    = horizontalRule(size, tableBorderChar)
     val separator = horizontalRule(size, rowSeparatorChar)
 
@@ -50,27 +53,30 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
       out.write(output("%s", border, tableBorderColor))
 
     header.foreach { row =>
-      out.write(output(format, row, columnHeaderColor))
+      out.write(output(headerFmt, row))
 
       if (rowSeparatorEnabled)
         out.write(output("%s", separator, rowSeparatorColor))
     }
 
-    rows.foreach { row =>
-      out.write(output(format, row, cellColor))
+    body.foreach { row =>
+      out.write(output(bodyFmt, row))
     }
 
     if (tableBorderEnabled)
       out.write(output("%s", border, tableBorderColor))
   }
 
-  private def output(format: String, row: String, fontColor: String): String =
-    String.format(fontColor ++ format ++ resetColor ++ "%n", row)
+  private def output(format: String, row: String, color: String): String =
+    String.format(color ++ format ++ resetColor ++ "%n", row)
 
-  private def output(format: String, row: Seq[String], fontColor: String): String =
-    String.format(fontColor ++ format ++ resetColor ++ "%n", row.map(adjustValue) : _*)
+  private def output(format: String, row: Seq[String]): String =
+    String.format(format ++ "%n", row.map(adjustValue) : _*)
 
-  private def rowData(table: Table): Seq[Seq[String]] =
+  private def headerRow(table: Table): Option[Seq[String]] =
+    if (columnHeaderEnabled) table.rows.headOption else None
+
+  private def bodyRows(table: Table): Seq[Seq[String]] =
     if (columnHeaderEnabled) table.rows.tail else table.rows
 
   private def rowSize(table: Table): Int =
@@ -79,18 +85,39 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
       trailSpace.size +
       ((table.columnCount - 1) * cellSpace.size)
 
-  private def rowFormat(table: Table): String =
+  private def headerFormat(table: Table): String =
     columnSizes(table)
       .zipWithIndex
-      .map { case (size, index) =>
-        if (columnRightAlign.contains(index))
-          s"%${size}s"
-        else
-          s"%-${size}s"
-      }.mkString(leadSpace, cellSpace, trailSpace)
+      .map {
+        case (size, index) =>
+          if (columnRightAlign.contains(index))
+            s"%${size}s"
+          else
+            s"%-${size}s"
 
-  private def columnHeader(table: Table): Option[Seq[String]] =
-    if (columnHeaderEnabled) table.rows.headOption else None
+      }.mkString(columnHeaderColor ++ leadSpace, cellSpace, trailSpace ++ resetColor)
+
+  private def bodyFormat(table: Table): String = {
+    val leadColor  = if (rowHeaderEnabled) rowHeaderColor else cellColor
+    val trailColor = if (rowHeaderEnabled) resetColor ++ cellColor else ""
+
+    columnSizes(table)
+      .zipWithIndex
+      .map {
+        case (size, 0)  =>
+          if (columnRightAlign.contains(0))
+            s"%${size}s${trailColor}"
+          else
+            s"%-${size}s${trailColor}"
+
+        case (size, index) =>
+          if (columnRightAlign.contains(index))
+            s"%${size}s"
+          else
+            s"%-${size}s"
+
+      }.mkString(leadColor ++ leadSpace, cellSpace, trailSpace ++ resetColor)
+  }
 
   private def columnSizes(table: Table): Seq[Int] =
     table.columns.map(_.map(replaceNull(_).size).max.min(columnMaxSize))
