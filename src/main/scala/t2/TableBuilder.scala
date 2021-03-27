@@ -15,7 +15,25 @@
  */
 package t2
 
-/** Defines table builder. */
+/**
+ * Defines table builder.
+ *
+ * == Usage ==
+ *
+ * Below is an example of how to create and use the default `TableBuilder`.
+ *
+ * {{{
+ * // Build table with first row as column header
+ * val table = t2.TableBuilder()
+ *   .add("#", "Effective Date", "Currency Code", "Exchange Rate")
+ *   .add("1", "2021-01-04", "USD", "0.690236")
+ *   .add("2", "2021-01-05", "USD", "0.690627")
+ *   .add("3", "2021-01-06", "USD", "0.689332")
+ *   .build()
+ * }}}
+ *
+ * @see [[TableBuilder.forRows]], [[TableBuilder.forColumns]]
+ */
 trait TableBuilder {
   /** Gets current row count. */
   def rowCount: Int

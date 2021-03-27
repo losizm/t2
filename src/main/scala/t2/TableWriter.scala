@@ -20,20 +20,53 @@ import java.io.{ OutputStream, PrintWriter, Writer }
 /**
  * Defines table writer.
  *
- * == Sample Output ==
+ * == Usage ==
  *
- * Output generated using the default table writer would look something like the
- * following if printed to a terminal.
+ * Below is an example of how to create, configure, and use the default
+ * `TableWriter`.
+ *
+ * {{{
+ * // Build table
+ * val table = t2.TableBuilder()
+ *   .add("#", "Effective Date", "Currency Code", "Exchange Rate")
+ *   .add("1", "2021-01-04", "USD", "0.690236")
+ *   .add("2", "2021-01-05", "USD", "0.690627")
+ *   .add("3", "2021-01-06", "USD", "0.689332")
+ *   .build()
+ *
+ * // Create table writer with supplied configuration
+ * val writer = t2.TableWriter(
+ *   "ansiColorEnabled"    -> "true",
+ *   "tableBorderColor"    -> Console.CYAN,
+ *   "columnHeaderColor"   -> (Console.YELLOW_B ++ Console.BLACK),
+ *   "columnRightAlign"    -> "0,3", // Right align first and last columns
+ *   "rowHeaderEnabled"    -> "true",
+ *   "rowHeaderColor"      -> (Console.BOLD ++ Console.CYAN),
+ *   "rowSeparatorColor"   -> Console.YELLOW
+ * )
+ *
+ * // Write table to standard output
+ * writer.write(System.out, table)
+ * }}}
+ *
+ * The generated output would look something like the following if printed to a
+ * color-enabled terminal.
  *
  * <pre style="background: black; color: white;">
- * ===================================================
- *   #  Effective Date  Currency Code  Exchange Rate
- * ---------------------------------------------------
- *   1  2021-01-04      USD            0.690236
- *   2  2021-01-05      USD            0.690627
- *   3  2021-01-06      USD            0.689332
- * ===================================================
+ * <span style="color: #0cc;">===================================================</span>
+ * <span style="background: #cc0; color: black;">  #  Effective Date  Currency Code  Exchange Rate  </span>
+ * <span style="color: #cc0;">---------------------------------------------------</span>
+ * <span style="color: #0cc; font-weight: bold;">  1 </span> 2021-01-04      USD                 0.690236
+ * <span style="color: #0cc; font-weight: bold;">  2 </span> 2021-01-05      USD                 0.690627
+ * <span style="color: #0cc; font-weight: bold;">  3 </span> 2021-01-06      USD                 0.689332
+ * <span style="color: #0cc;">===================================================</span>
  * </pre>
+ *
+ * The table writer can be reconfigured for changing such things as cell padding,
+ * characters used for table borders and row separator, and more.
+ *
+ * @see [[t2.TableWriter$.apply(config:Map[String,String])* TableWriter(Map[String, String])]],
+ * [[t2.TableWriter$.apply(config:(String,String)*)* TableWriter((String,String)*)]]
  */
 trait TableWriter {
   /**
@@ -75,14 +108,14 @@ trait TableWriter {
  * |tableBorderEnabled    |`"true"`        |
  * |tableBorderChar       |`"="`           |
  * |tableBorderColor^1^   |defaultColor    |
+ * |columnHeaderEnabled   |`"true"`        |
+ * |columnHeaderColor^1^  |defaultColor    |
+ * |columnRightAlign^2^   |`""`            |
  * |rowHeaderEnabled      |`"false"`       |
  * |rowHeaderColor^1^     |defaultColor    |
  * |rowSeparatorEnabled   |`"true"`        |
  * |rowSeparatorChar      |`"-"`           |
  * |rowSeparatorColor^1^  |defaultColor    |
- * |columnRightAlign^2^   |`""`            |
- * |columnHeaderEnabled   |`"true"`        |
- * |columnHeaderColor^1^  |defaultColor    |
  * |maxValueSize          |`"20"`          |
  * |cellColor^1^          |defaultColor    |
  * |cellPadSize           |`"1"`           |

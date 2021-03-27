@@ -29,19 +29,19 @@ val table = t2.TableBuilder()
 val writer = t2.TableWriter(
   "ansiColorEnabled"    -> "true",
   "tableBorderColor"    -> Console.CYAN,
+  "columnHeaderColor"   -> (Console.YELLOW_B ++ Console.BLACK),
+  "columnRightAlign"    -> "0,3", // Right align first and last columns
   "rowHeaderEnabled"    -> "true",
   "rowHeaderColor"      -> (Console.BOLD ++ Console.CYAN),
-  "rowSeparatorColor"   -> Console.YELLOW,
-  "columnHeaderColor"   -> (Console.YELLOW_B ++ Console.BLACK),
-  "columnRightAlign"    -> "0,3" // Right align first and last columns
+  "rowSeparatorColor"   -> Console.YELLOW
 )
 
 // Write table to standard output
 writer.write(System.out, table)
 ```
 
-The generated output would look something like the following if printed to
-a terminal.
+The generated output would look something like the following if printed to a
+terminal.
 
 ```
 ===================================================

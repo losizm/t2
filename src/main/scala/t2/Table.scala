@@ -15,7 +15,41 @@
  */
 package t2
 
-/** Defines table. */
+/**
+ * Defines table.
+ *
+ * == How to Create Table ==
+ *
+ * A `Table` can be created using a factory defined in companion object or
+ * incrementally built using a `TableBuilder`.
+ *
+ * The two tables created in the example below are effectively the same.
+ *
+ * {{{
+ * // Create table with data supplied as Seq[Seq[String]]
+ * val table1 = t2.Table(
+ *   Seq(
+ *     Seq("#", "Effective Date", "Currency Code", "Exchange Rate"),
+ *     Seq("1", "2021-01-04", "USD", "0.690236"),
+ *     Seq("2", "2021-01-05", "USD", "0.690627"),
+ *     Seq("3", "2021-01-06", "USD", "0.689332")
+ *   )
+ * )
+ *
+ * // Incrementally build table by adding value sequences
+ * val table2 = t2.TableBuilder()
+ *   .add("#", "Effective Date", "Currency Code", "Exchange Rate")
+ *   .add("1", "2021-01-04", "USD", "0.690236")
+ *   .add("2", "2021-01-05", "USD", "0.690627")
+ *   .add("3", "2021-01-06", "USD", "0.689332")
+ *   .build()
+ *
+ * // Assert equality
+ * assert(table1.rows == table2.rows)
+ * }}}
+ *
+ * @see [[Table.forRows]], [[Table.forColumns]], [[TableBuilder]]
+ */
 trait Table {
   /** Gets row count. */
   def rowCount: Int

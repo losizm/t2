@@ -15,7 +15,7 @@
  */
 
 /**
- * Defines core types.
+ * Defines types to create, access, and print tables.
  *
  * == Getting Started ==
  *
@@ -35,19 +35,19 @@
  * val writer = t2.TableWriter(
  *   "ansiColorEnabled"    -> "true",
  *   "tableBorderColor"    -> Console.CYAN,
+ *   "columnHeaderColor"   -> (Console.YELLOW_B ++ Console.BLACK),
+ *   "columnRightAlign"    -> "0,3", // Right align first and last columns
  *   "rowHeaderEnabled"    -> "true",
  *   "rowHeaderColor"      -> (Console.BOLD ++ Console.CYAN),
- *   "rowSeparatorColor"   -> Console.YELLOW,
- *   "columnHeaderColor"   -> (Console.YELLOW_B ++ Console.BLACK),
- *   "columnRightAlign"    -> "0,3" // Right align first and last columns
+ *   "rowSeparatorColor"   -> Console.YELLOW
  * )
  *
  * // Write table to standard output
  * writer.write(System.out, table)
  * }}}
  *
- * The generated output would look something like the following if printed to
- * a terminal.
+ * The generated output would look something like the following if printed to a
+ * color-enabled terminal.
  *
  * <pre style="background: black; color: white;">
  * <span style="color: #0cc;">===================================================</span>
@@ -59,7 +59,7 @@
  * <span style="color: #0cc;">===================================================</span>
  * </pre>
  *
- * Table output can be adjusted using configuration for such things as changing
- * cell padding, characters used for table borders and row separator, and more.
+ * The table writer can be reconfigured for changing such things as cell
+ * padding, characters used for table borders and row separator, and more.
  */
 package object t2
