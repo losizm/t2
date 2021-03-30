@@ -123,8 +123,6 @@ trait TableWriter {
  * |cellSpaceSize         |`"1"`           |
  * |cellSpaceColor^1^     |`""`            |
  * |cellPadSize           |`"1"`           |
- * |firstPadSize          |`"1"`           |
- * |lastPadSize           |`"1"`           |
  * |nullValue             |`""`            |
  * |truncateEnabled       |`"true"`        |
  * <span></span>
