@@ -42,8 +42,9 @@ class TableWriterSpec extends org.scalatest.flatspec.AnyFlatSpec {
     "cellPadSize"         -> "2",
     "firstPadSize"        -> "4",
     "lastPadSize"         -> "1",
-    "maxValueSize"        -> "16",
-    "nullValue"           -> " "
+    "maxValueSize"        -> "12",
+    "nullValue"           -> " ",
+    "truncateEnabled"     -> "true"
   )
 
   val columnHeader = Seq("#", "Effective Date", "Day Of Week", "Currency Code", "SDR Per Unit", "Percent Variance")

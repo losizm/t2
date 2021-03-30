@@ -126,6 +126,7 @@ trait TableWriter {
  * |firstPadSize          |`"1"`           |
  * |lastPadSize           |`"1"`           |
  * |nullValue             |`""`            |
+ * |truncateEnabled       |`"true"`        |
  * <span></span>
  *
  * ^1^ Defined as `AnsiColor` value; also accepts values `"black"`, `"red"`,

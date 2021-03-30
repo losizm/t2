@@ -42,6 +42,7 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
   private val firstPad            = " " * configInt("firstPadSize", 1)
   private val lastPad             = " " * configInt("lastPadSize", 1)
   private val nullValue           = configString("nullValue", "")
+  private val truncateEnabled     = configBoolean("truncateEnabled", true)
 
   def write(out: Writer, table: Table): Unit = {
     val header    = headerRow(table)
@@ -130,7 +131,10 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
     char * size
 
   private def adjustValue(value: String): String =
-    replaceNull(value).take(maxValueSize)
+    truncateEnabled match {
+      case true  => replaceNull(value).take(maxValueSize)
+      case false => replaceNull(value)
+    }
 
   private def replaceNull(value: String): String =
     if (value == null) nullValue else value
