@@ -33,6 +33,8 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
   private val rowSeparatorChar    = configChar("rowSeparatorChar", "-")
   private val rowSeparatorColor   = configColor("rowSeparatorColor", defaultColor)
   private val maxValueSize        = configInt("maxValueSize", 20)
+  private val leftMargin          = " " * configInt("leftMarginSize", 0)
+  private val rightMargin         = " " * configInt("rightMarginSize", 0)
   private val cellColor           = configColor("cellColor", defaultColor)
   private val cellSpaceSize       = configInt("cellSpaceSize", 0)
   private val cellSpace           = configColor("cellSpaceColor", "") ++ (" " * cellSpaceSize) ++ resetColor
@@ -69,10 +71,10 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
   }
 
   private def output(format: String, row: String, color: String): String =
-    String.format(color ++ format ++ resetColor ++ "%n", row)
+    String.format(leftMargin ++ color ++ format ++ resetColor ++ rightMargin ++ "%n", row)
 
   private def output(format: String, row: Seq[String]): String =
-    String.format(format ++ "%n", row.map(adjustValue) : _*)
+    String.format(leftMargin ++ format ++ rightMargin ++ "%n", row.map(adjustValue) : _*)
 
   private def headerRow(table: Table): Option[Seq[String]] =
     if (columnHeaderEnabled) table.rows.headOption else None

@@ -117,7 +117,11 @@ trait TableWriter {
  * |rowSeparatorChar      |`"-"`           |
  * |rowSeparatorColor^1^  |defaultColor    |
  * |maxValueSize          |`"20"`          |
+ * |leftMarginSize        |`"0"`           |
+ * |rightMarginSize       |`"0"`           |
  * |cellColor^1^          |defaultColor    |
+ * |cellSpaceSize         |`"1"`           |
+ * |cellSpaceColor^1^     |`""`            |
  * |cellPadSize           |`"1"`           |
  * |firstPadSize          |`"1"`           |
  * |lastPadSize           |`"1"`           |
