@@ -34,6 +34,8 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
   private val rowSeparatorColor   = configColor("rowSeparatorColor", defaultColor)
   private val maxValueSize        = configInt("maxValueSize", 20)
   private val cellColor           = configColor("cellColor", defaultColor)
+  private val cellSpaceSize       = configInt("cellSpaceSize", 0)
+  private val cellSpace           = configColor("cellSpaceColor", "") ++ (" " * cellSpaceSize) ++ resetColor
   private val cellPad             = " " * configInt("cellPadSize", 1)
   private val firstPad            = " " * configInt("firstPadSize", 1)
   private val lastPad             = " " * configInt("lastPadSize", 1)
@@ -82,7 +84,8 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
     columnSizes(table).sum +
       firstPad.size +
       lastPad.size +
-      (table.columnCount * (cellPad.size * 2))
+      (table.columnCount * (cellPad.size * 2)) +
+      ((table.columnCount - 1) * cellSpaceSize)
 
   private def headerFormat(table: Table): String =
     columnSizes(table)
@@ -94,7 +97,7 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
           else
             s"${cellPad}%-${size}s${cellPad}"
 
-      }.mkString(columnHeaderColor ++ firstPad, "", lastPad ++ resetColor)
+      }.mkString(columnHeaderColor ++ firstPad, cellSpace ++ columnHeaderColor, lastPad ++ resetColor)
 
   private def bodyFormat(table: Table): String = {
     val leadColor  = if (rowHeaderEnabled) rowHeaderColor else cellColor
@@ -115,7 +118,7 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
           else
             s"${cellPad}%-${size}s${cellPad}"
 
-      }.mkString(leadColor ++ firstPad, "", lastPad ++ resetColor)
+      }.mkString(leadColor ++ firstPad, cellSpace ++ trailColor, lastPad ++ resetColor)
   }
 
   private def columnSizes(table: Table): Seq[Int] =
