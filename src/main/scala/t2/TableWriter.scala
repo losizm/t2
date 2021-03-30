@@ -131,7 +131,7 @@ trait TableWriter {
  * ^1^ Defined as `AnsiColor` value; also accepts values `"black"`, `"red"`,
  * `"green"`, `"yellow"`, `"blue"`, `"magenta"`, `"cyan"`, and `"white"`.
  *
- * ^2^ Defined as comma-delimited list of column indexes.
+ * ^2^ Defined as comma- or space-delimited list of column indexes.
  */
 object TableWriter {
   /**

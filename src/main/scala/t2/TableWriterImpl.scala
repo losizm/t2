@@ -168,6 +168,6 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
   private def configAlignment(name: String, default: => Set[Int]): Set[Int] =
     config
       .get(name)
-      .map(_.split(",").map(_.toInt).toSet)
+      .map(_.split("[,\\s]+").map(_.toInt).toSet)
       .getOrElse(default)
 }
