@@ -105,6 +105,8 @@ trait TableWriter {
  * |----------------------|----------------|
  * |ansiColorEnabled      |`"false"`       |
  * |defaultColor^1^       |`Console.RESET` |
+ * |leftMarginSize        |`"0"`           |
+ * |rightMarginSize       |`"0"`           |
  * |tableBorderEnabled    |`"true"`        |
  * |tableBorderChar       |`"="`           |
  * |tableBorderColor^1^   |defaultColor    |
@@ -116,13 +118,11 @@ trait TableWriter {
  * |rowSeparatorEnabled   |`"true"`        |
  * |rowSeparatorChar      |`"-"`           |
  * |rowSeparatorColor^1^  |defaultColor    |
- * |maxValueSize          |`"20"`          |
- * |leftMarginSize        |`"0"`           |
- * |rightMarginSize       |`"0"`           |
  * |cellColor^1^          |defaultColor    |
+ * |cellPadSize           |`"1"`           |
  * |cellSpaceSize         |`"1"`           |
  * |cellSpaceColor^1^     |`""`            |
- * |cellPadSize           |`"1"`           |
+ * |maxValueSize          |`"20"`          |
  * |nullValue             |`""`            |
  * |truncateEnabled       |`"true"`        |
  * <span></span>
