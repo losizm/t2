@@ -36,13 +36,13 @@ import java.io.{ OutputStream, PrintWriter, Writer }
  *
  * // Create table writer with supplied configuration
  * val writer = t2.TableWriter(
- *   "ansiColorEnabled"    -> "true",
- *   "tableBorderColor"    -> Console.CYAN,
- *   "columnHeaderColor"   -> (Console.YELLOW_B ++ Console.BLACK),
- *   "columnRightAlign"    -> "0,3", // Right align first and last columns
- *   "rowHeaderEnabled"    -> "true",
- *   "rowHeaderColor"      -> (Console.BOLD ++ Console.CYAN),
- *   "rowSeparatorColor"   -> Console.YELLOW
+ *   "ansiColorEnabled"   -> "true",
+ *   "tableBorderColor"   -> Console.CYAN,
+ *   "tableHeaderColor"   -> (Console.YELLOW_B ++ Console.BLACK),
+ *   "columnRightAlign"   -> "0,3", // Right align first and last columns
+ *   "rowHeaderEnabled"   -> "true",
+ *   "rowHeaderColor"     -> (Console.BOLD ++ Console.CYAN),
+ *   "bodySeparatorColor" -> Console.YELLOW
  * )
  *
  * // Write table to standard output
@@ -110,16 +110,16 @@ trait TableWriter {
  * |tableBorderEnabled    |`"true"`        |
  * |tableBorderChar       |`"="`           |
  * |tableBorderColor^1^   |defaultColor    |
- * |columnHeaderEnabled   |`"true"`        |
- * |columnHeaderColor^1^  |defaultColor    |
- * |columnFooterEnabled   |`"false"`       |
- * |columnFooterColor^1^  |defaultColor    |
+ * |tableHeaderEnabled    |`"true"`        |
+ * |tableHeaderColor^1^   |defaultColor    |
+ * |tableFooterEnabled    |`"false"`       |
+ * |tableFooterColor^1^   |defaultColor    |
  * |columnRightAlign^2^   |`""`            |
  * |rowHeaderEnabled      |`"false"`       |
  * |rowHeaderColor^1^     |defaultColor    |
- * |rowSeparatorEnabled   |`"true"`        |
- * |rowSeparatorChar      |`"-"`           |
- * |rowSeparatorColor^1^  |defaultColor    |
+ * |bodySeparatorEnabled  |`"true"`        |
+ * |bodySeparatorChar     |`"-"`           |
+ * |bodySeparatorColor^1^ |defaultColor    |
  * |cellColor^1^          |defaultColor    |
  * |cellPadSize           |`"1"`           |
  * |cellSpaceSize         |`"0"`           |

@@ -20,34 +20,34 @@ import java.io.StringWriter
 
 class TableWriterSpec extends org.scalatest.flatspec.AnyFlatSpec {
   val config = Map(
-    "ansiColorEnabled"    -> "true",
-    "defaultColor"        -> "white",
-    "leftMarginSize"      -> "2",
-    "rightMarginSize"     -> "0",
-    "tableBorderEnabled"  -> "true",
-    "tableBorderChar"     -> "x",
-    "tableBorderColor"    -> "red",
-    "rowHeaderEnabled"    -> "true",
-    "rowHeaderColor"      -> s"${Console.BOLD}${Console.GREEN_B}${Console.RED}",
-    "rowSeparatorEnabled" -> "true",
-    "rowSeparatorChar"    -> "o",
-    "rowSeparatorColor"   -> "yellow",
-    "columnHeaderEnabled" -> "true",
-    "columnHeaderColor"   -> s"${Console.BOLD}${Console.YELLOW_B}${Console.BLACK}",
-    "columnFooterEnabled" -> "true",
-    "columnFooterColor"   -> s"${Console.BOLD}${Console.MAGENTA_B}${Console.BLACK}",
-    "columnMaxSize"       -> "20",
-    "columnRightAlign"    -> "0   4,, 5",
-    "cellColor"           -> s"${Console.WHITE_B}${Console.BLUE}",
-    "cellPadSize"         -> "2",
-    "cellSpaceSize"       -> "1",
-    "cellSpaceColor"      -> Console.BLACK_B,
-    "maxValueSize"        -> "12",
-    "nullValue"           -> " ",
-    "truncateEnabled"     -> "true"
+    "ansiColorEnabled"     -> "true",
+    "defaultColor"         -> "white",
+    "leftMarginSize"       -> "2",
+    "rightMarginSize"      -> "0",
+    "tableBorderEnabled"   -> "true",
+    "tableBorderChar"      -> "x",
+    "tableBorderColor"     -> "red",
+    "rowHeaderEnabled"     -> "true",
+    "rowHeaderColor"       -> s"${Console.BOLD}${Console.GREEN_B}${Console.RED}",
+    "bodySeparatorEnabled" -> "true",
+    "bodySeparatorChar"    -> "o",
+    "bodySeparatorColor"   -> "yellow",
+    "tableHeaderEnabled"   -> "true",
+    "tableHeaderColor"     -> s"${Console.BOLD}${Console.YELLOW_B}${Console.BLACK}",
+    "tableFooterEnabled"   -> "true",
+    "tableFooterColor"     -> s"${Console.BOLD}${Console.MAGENTA_B}${Console.BLACK}",
+    "columnMaxSize"        -> "20",
+    "columnRightAlign"     -> "0   4,, 5",
+    "cellColor"            -> s"${Console.WHITE_B}${Console.BLUE}",
+    "cellPadSize"          -> "2",
+    "cellSpaceSize"        -> "1",
+    "cellSpaceColor"       -> Console.BLACK_B,
+    "maxValueSize"         -> "12",
+    "nullValue"            -> " ",
+    "truncateEnabled"      -> "true"
   )
 
-  val columnHeader = Seq("#", "Effective Date", "Day Of Week", "Currency Code", "SDR Per Unit", "Percent Variance")
+  val tableHeader = Seq("#", "Effective Date", "Day Of Week", "Currency Code", "SDR Per Unit", "Percent Variance")
 
   val tableData = Seq(
     Seq( "1", "2021-01-04", "Mon", "CAD", "0.541319", null),
@@ -65,13 +65,13 @@ class TableWriterSpec extends org.scalatest.flatspec.AnyFlatSpec {
     Seq("13", "2021-01-06", "Wed", "GBP", "0.940831", "0.23"),
     Seq("14", "2021-01-06", "Wed", "INR", "0.009425", "-0.23"),
     Seq("15", "2021-01-06", "Wed", "USD", "0.689332", "-0.19"),
-    Seq("Avg", "", "", "", "0.555555", "0.11"),
+    Seq("Avg", "", "", "", "X.XXXXXX", "X.XX"),
   )
 
   it should "write table with ANSI colors" in {
     val out = new StringWriter()
     val writer = TableWriter(config)
-    writer.write(out, Table(columnHeader +: tableData))
+    writer.write(out, Table(tableHeader +: tableData))
 
     info("table output:\n" + out.toString)
   }

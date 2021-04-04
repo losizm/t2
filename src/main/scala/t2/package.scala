@@ -33,13 +33,13 @@
  *
  * // Create table writer with supplied configuration
  * val writer = t2.TableWriter(
- *   "ansiColorEnabled"    -> "true",
- *   "tableBorderColor"    -> Console.CYAN,
- *   "columnHeaderColor"   -> (Console.YELLOW_B ++ Console.BLACK),
- *   "columnRightAlign"    -> "0,3", // Right align first and last columns
- *   "rowHeaderEnabled"    -> "true",
- *   "rowHeaderColor"      -> (Console.BOLD ++ Console.CYAN),
- *   "rowSeparatorColor"   -> Console.YELLOW
+ *   "ansiColorEnabled"   -> "true",
+ *   "tableBorderColor"   -> Console.CYAN,
+ *   "tableHeaderColor"   -> (Console.YELLOW_B ++ Console.BLACK),
+ *   "columnRightAlign"   -> "0,3", // Right align first and last columns
+ *   "rowHeaderEnabled"   -> "true",
+ *   "rowHeaderColor"     -> (Console.BOLD ++ Console.CYAN),
+ *   "bodySeparatorColor" -> Console.YELLOW
  * )
  *
  * // Write table to standard output
