@@ -112,6 +112,8 @@ trait TableWriter {
  * |tableBorderColor^1^   |defaultColor    |
  * |columnHeaderEnabled   |`"true"`        |
  * |columnHeaderColor^1^  |defaultColor    |
+ * |columnFooterEnabled   |`"false"`       |
+ * |columnFooterColor^1^  |defaultColor    |
  * |columnRightAlign^2^   |`""`            |
  * |rowHeaderEnabled      |`"false"`       |
  * |rowHeaderColor^1^     |defaultColor    |
@@ -120,7 +122,7 @@ trait TableWriter {
  * |rowSeparatorColor^1^  |defaultColor    |
  * |cellColor^1^          |defaultColor    |
  * |cellPadSize           |`"1"`           |
- * |cellSpaceSize         |`"1"`           |
+ * |cellSpaceSize         |`"0"`           |
  * |cellSpaceColor^1^     |`""`            |
  * |maxValueSize          |`"20"`          |
  * |nullValue             |`""`            |

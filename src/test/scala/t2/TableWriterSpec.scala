@@ -34,6 +34,8 @@ class TableWriterSpec extends org.scalatest.flatspec.AnyFlatSpec {
     "rowSeparatorColor"   -> "yellow",
     "columnHeaderEnabled" -> "true",
     "columnHeaderColor"   -> s"${Console.BOLD}${Console.YELLOW_B}${Console.BLACK}",
+    "columnFooterEnabled" -> "true",
+    "columnFooterColor"   -> s"${Console.BOLD}${Console.MAGENTA_B}${Console.BLACK}",
     "columnMaxSize"       -> "20",
     "columnRightAlign"    -> "0   4,, 5",
     "cellColor"           -> s"${Console.WHITE_B}${Console.BLUE}",
@@ -63,6 +65,7 @@ class TableWriterSpec extends org.scalatest.flatspec.AnyFlatSpec {
     Seq("13", "2021-01-06", "Wed", "GBP", "0.940831", "0.23"),
     Seq("14", "2021-01-06", "Wed", "INR", "0.009425", "-0.23"),
     Seq("15", "2021-01-06", "Wed", "USD", "0.689332", "-0.19"),
+    Seq("Avg", "", "", "", "0.555555", "0.11"),
   )
 
   it should "write table with ANSI colors" in {

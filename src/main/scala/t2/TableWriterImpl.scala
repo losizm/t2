@@ -28,6 +28,8 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
   private val tableBorderColor    = configColor("tableBorderColor", defaultColor)
   private val columnHeaderEnabled = configBoolean("columnHeaderEnabled", true)
   private val columnHeaderColor   = configColor("columnHeaderColor", defaultColor)
+  private val columnFooterEnabled = configBoolean("columnFooterEnabled", false)
+  private val columnFooterColor   = configColor("columnFooterColor", defaultColor)
   private val columnRightAlign    = configAlignment("columnRightAlign", Set.empty)
   private val rowHeaderEnabled    = configBoolean("rowHeaderEnabled", false)
   private val rowHeaderColor      = configColor("rowHeaderColor", defaultColor)
@@ -44,9 +46,11 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
 
   def write(out: Writer, table: Table): Unit = {
     val header    = headerRow(table)
+    val footer    = footerRow(table)
     val body      = bodyRows(table)
     val size      = rowSize(table)
     val headerFmt = headerFormat(table)
+    val footerFmt = footerFormat(table)
     val bodyFmt   = bodyFormat(table)
     val border    = horizontalRule(size, tableBorderChar)
     val separator = horizontalRule(size, rowSeparatorChar)
@@ -65,6 +69,13 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
       out.write(output(bodyFmt, row))
     }
 
+    footer.foreach { row =>
+      if (rowSeparatorEnabled)
+        out.write(output("%s", separator, rowSeparatorColor))
+
+      out.write(output(footerFmt, row))
+    }
+
     if (tableBorderEnabled)
       out.write(output("%s", border, tableBorderColor))
   }
@@ -79,7 +90,11 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
     if (columnHeaderEnabled) table.rows.headOption else None
 
   private def bodyRows(table: Table): Seq[Seq[String]] =
-    if (columnHeaderEnabled) table.rows.tail else table.rows
+    (if (columnHeaderEnabled) table.rows.tail else table.rows)
+      .dropRight(if (columnFooterEnabled) 1 else 0)
+
+  private def footerRow(table: Table): Option[Seq[String]] =
+    if (columnFooterEnabled) table.rows.tail.lastOption else None
 
   private def rowSize(table: Table): Int =
     columnSizes(table).sum +
@@ -97,6 +112,18 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
             s"${cellPad}%-${size}s${cellPad}"
 
       }.mkString(columnHeaderColor, cellSpace ++ columnHeaderColor, resetColor)
+
+  private def footerFormat(table: Table): String =
+    columnSizes(table)
+      .zipWithIndex
+      .map {
+        case (size, index) =>
+          if (columnRightAlign.contains(index))
+            s"${cellPad}%${size}s${cellPad}"
+          else
+            s"${cellPad}%-${size}s${cellPad}"
+
+      }.mkString(columnFooterColor, cellSpace ++ columnFooterColor, resetColor)
 
   private def bodyFormat(table: Table): String = {
     val leadColor  = if (rowHeaderEnabled) rowHeaderColor else cellColor
