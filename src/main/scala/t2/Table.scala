@@ -20,8 +20,8 @@ package t2
  *
  * == How to Create Table ==
  *
- * A `Table` can be created using a factory defined in companion object or
- * incrementally built using a `TableBuilder`.
+ * A `Table` can be created using a factory defined in companion object, or it
+ * can be built incrementally using a `TableBuilder`.
  *
  * The two tables created in the example below are effectively the same.
  *

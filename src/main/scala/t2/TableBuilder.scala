@@ -23,7 +23,7 @@ package t2
  * Below is an example of how to create and use the default `TableBuilder`.
  *
  * {{{
- * // Build table with first row as column header
+ * // Build table with first row as table header
  * val table = t2.TableBuilder()
  *   .add("#", "Effective Date", "Currency Code", "Exchange Rate")
  *   .add("1", "2021-01-04", "USD", "0.690236")

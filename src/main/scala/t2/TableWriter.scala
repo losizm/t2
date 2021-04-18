@@ -39,13 +39,13 @@ import java.io.{ OutputStream, PrintWriter, Writer }
  *   "ansiColorEnabled"   -> "true",
  *   "tableBorderColor"   -> Console.CYAN,
  *   "tableHeaderColor"   -> (Console.YELLOW_B ++ Console.BLACK),
- *   "columnRightAlign"   -> "0,3", // Right align first and last columns
+ *   "bodySeparatorColor" -> Console.YELLOW,
  *   "rowHeaderEnabled"   -> "true",
  *   "rowHeaderColor"     -> (Console.BOLD ++ Console.CYAN),
- *   "bodySeparatorColor" -> Console.YELLOW
+ *   "columnRightAlign"   -> "0,3" // Right align first and last columns
  * )
  *
- * // Write table to standard output
+ * // Write table to stdout
  * writer.write(System.out, table)
  * }}}
  *
@@ -62,8 +62,8 @@ import java.io.{ OutputStream, PrintWriter, Writer }
  * <span style="color: #0cc;">===================================================</span>
  * </pre>
  *
- * The table writer can be reconfigured for changing such things as cell padding,
- * characters used for table borders and row separator, and more.
+ * The table writer can be reconfigured for changing such things as cell
+ * padding, character used for table borders, and more.
  *
  * @see [[t2.TableWriter$.apply(config:Map[String,String])* TableWriter(Map[String, String])]],
  * [[t2.TableWriter$.apply(config:(String,String)*)* TableWriter((String,String)*)]]
@@ -108,18 +108,18 @@ trait TableWriter {
  * |leftMarginSize        |`"0"`           |
  * |rightMarginSize       |`"0"`           |
  * |tableBorderEnabled    |`"true"`        |
- * |tableBorderChar       |`"="`           |
  * |tableBorderColor^1^   |defaultColor    |
+ * |tableBorderChar       |`"="`           |
  * |tableHeaderEnabled    |`"true"`        |
  * |tableHeaderColor^1^   |defaultColor    |
  * |tableFooterEnabled    |`"false"`       |
  * |tableFooterColor^1^   |defaultColor    |
- * |columnRightAlign^2^   |`""`            |
+ * |bodySeparatorEnabled  |`"true"`        |
+ * |bodySeparatorColor^1^ |defaultColor    |
+ * |bodySeparatorChar     |`"-"`           |
  * |rowHeaderEnabled      |`"false"`       |
  * |rowHeaderColor^1^     |defaultColor    |
- * |bodySeparatorEnabled  |`"true"`        |
- * |bodySeparatorChar     |`"-"`           |
- * |bodySeparatorColor^1^ |defaultColor    |
+ * |columnRightAlign^2^   |`""`            |
  * |cellColor^1^          |defaultColor    |
  * |cellPadSize           |`"1"`           |
  * |cellSpaceSize         |`"0"`           |

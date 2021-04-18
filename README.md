@@ -17,7 +17,7 @@ Below is an example of **t2** in action. Here it builds a table and writes the
 content to stdout.
 
 ```scala
-// Build table with first row as column header
+// Build table with first row as table header
 val table = t2.TableBuilder()
   .add("#", "Effective Date", "Currency Code", "Exchange Rate")
   .add("1", "2021-01-04", "USD", "0.690236")
@@ -48,7 +48,7 @@ color-enabled terminal.
 </div>
 
 Table output can be restyled using configuration for such things as changing
-cell padding, characters used for table borders and row separator, and more.
+cell padding, character used for table borders, and more.
 
 ## API Documentation
 

@@ -23,7 +23,7 @@
  * these utilities, it builds a `Table` and writes the content to stdout.
  *
  * {{{
- * // Build table with first row as column header
+ * // Build table with first row as table header
  * val table = t2.TableBuilder()
  *   .add("#", "Effective Date", "Currency Code", "Exchange Rate")
  *   .add("1", "2021-01-04", "USD", "0.690236")
@@ -36,13 +36,13 @@
  *   "ansiColorEnabled"   -> "true",
  *   "tableBorderColor"   -> Console.CYAN,
  *   "tableHeaderColor"   -> (Console.YELLOW_B ++ Console.BLACK),
- *   "columnRightAlign"   -> "0,3", // Right align first and last columns
+ *   "bodySeparatorColor" -> Console.YELLOW,
  *   "rowHeaderEnabled"   -> "true",
  *   "rowHeaderColor"     -> (Console.BOLD ++ Console.CYAN),
- *   "bodySeparatorColor" -> Console.YELLOW
+ *   "columnRightAlign"   -> "0,3" // Right align first and last columns
  * )
  *
- * // Write table to standard output
+ * // Write table to stdout
  * writer.write(System.out, table)
  * }}}
  *
@@ -60,6 +60,6 @@
  * </pre>
  *
  * The table writer can be reconfigured for changing such things as cell
- * padding, characters used for table borders and row separator, and more.
+ * padding, character used for table borders, and more.
  */
 package object t2
