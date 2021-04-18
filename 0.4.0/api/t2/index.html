@@ -1,0 +1,125 @@
+<!DOCTYPE html ><html><head><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/><title>t2 0.4.0 - t2</title><meta content="t2 0.4.0 - t2" name="description"/><meta content="t2 0.4.0 t2" name="keywords"/><meta http-equiv="content-type" content="text/html; charset=UTF-8"/><link href="../lib/index.css" media="screen" type="text/css" rel="stylesheet"/><link href="../lib/template.css" media="screen" type="text/css" rel="stylesheet"/><link href="../lib/print.css" media="print" type="text/css" rel="stylesheet"/><link href="../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css"/><script type="text/javascript" src="../lib/jquery.min.js"></script><script type="text/javascript" src="../lib/index.js"></script><script type="text/javascript" src="../index.js"></script><script type="text/javascript" src="../lib/scheduler.js"></script><script type="text/javascript" src="../lib/template.js"></script><script type="text/javascript">/* this variable can be used by the JS to determine the path to the root document */
+var toRoot = '../';</script></head><body><div id="search"><span id="doc-title">t2<span id="doc-version">0.4.0</span></span> <span class="close-results"><span class="left">&lt;</span> Back</span><div id="textfilter"><span class="input"><input autocapitalize="none" placeholder="Search" id="index-input" type="text" accesskey="/"/><i class="clear material-icons"></i><i id="search-icon" class="material-icons"></i></span></div></div><div id="search-results"><div id="search-progress"><div id="progress-fill"></div></div><div id="results-content"><div id="entity-results"></div><div id="member-results"></div></div></div><div id="content-scroll-container" style="-webkit-overflow-scrolling: touch;"><div id="content-container" style="-webkit-overflow-scrolling: touch;"><div id="subpackage-spacer"><div id="packages"><h1>Packages</h1><ul><li class="indented0 " name="_root_.root" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="_root_" class="anchorToMember"></a><a id="root:_root_" class="anchorToMember"></a> <span class="permalink"><a href="../index.html" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">package</span></span> <span class="symbol"><a href="../index.html" title=""><span class="name">root</span></a></span><div class="fullcomment"><dl class="attributes block"><dt>Definition Classes</dt><dd><a href="../index.html" name="_root_" id="_root_" class="extype">root</a></dd></dl></div></li><li class="indented1 current" name="_root_.t2" group="Ungrouped" fullComment="yes" data-isabs="false" visbl="pub"><a id="t2" class="anchorToMember"></a><a id="t2:t2" class="anchorToMember"></a> <span class="permalink"><a href="../t2/index.html" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">package</span></span> <span class="symbol"><span class="name">t2</span></span><p class="shortcomment cmt">Defines types to create, access, and print tables.</p><div class="fullcomment"><div class="comment cmt"><p>Defines types to create, access, and print tables.</p><h4> Getting Started </h4><p>Below is an example of how to use <code>TableBuilder</code> and <code>TableWriter</code>. Using
+these utilities, it builds a <code>Table</code> and writes the content to stdout.</p><pre><span class="cmt">// Build table with first row as table header</span>
+<span class="kw">val</span> table = t2.TableBuilder()
+  .add(<span class="lit">"#"</span>, <span class="lit">"Effective Date"</span>, <span class="lit">"Currency Code"</span>, <span class="lit">"Exchange Rate"</span>)
+  .add(<span class="lit">"1"</span>, <span class="lit">"2021-01-04"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.690236"</span>)
+  .add(<span class="lit">"2"</span>, <span class="lit">"2021-01-05"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.690627"</span>)
+  .add(<span class="lit">"3"</span>, <span class="lit">"2021-01-06"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.689332"</span>)
+  .build()
+
+<span class="cmt">// Create table writer with supplied configuration</span>
+<span class="kw">val</span> writer = t2.TableWriter(
+  <span class="lit">"ansiColorEnabled"</span> -&gt; <span class="lit">"true"</span>,
+  <span class="lit">"tableBorderColor"</span> -&gt; <span class="std">Console</span>.CYAN,
+  <span class="lit">"tableHeaderColor"</span> -&gt; (<span class="std">Console</span>.YELLOW_B ++ <span class="std">Console</span>.BLACK),
+  <span class="lit">"bodyRuleColor"</span>    -&gt; <span class="std">Console</span>.YELLOW,
+  <span class="lit">"rowHeaderEnabled"</span> -&gt; <span class="lit">"true"</span>,
+  <span class="lit">"rowHeaderColor"</span>   -&gt; (<span class="std">Console</span>.BOLD ++ <span class="std">Console</span>.CYAN),
+  <span class="lit">"columnRightAlign"</span> -&gt; <span class="lit">"0,3"</span> <span class="cmt">// Right align first and last columns</span>
+)
+
+<span class="cmt">// Write table to stdout</span>
+writer.write(System.out, table)</pre><p>The generated output would look something like the following if printed to a
+color-enabled terminal.</p><p><pre style="background: black; color: white;">
+<span style="color: #0cc;">===================================================</span>
+<span style="background: #cc0; color: black;">  #  Effective Date  Currency Code  Exchange Rate  </span>
+<span style="color: #cc0;">---------------------------------------------------</span>
+<span style="color: #0cc; font-weight: bold;">  1 </span> 2021-01-04      USD                 0.690236
+<span style="color: #0cc; font-weight: bold;">  2 </span> 2021-01-05      USD                 0.690627
+<span style="color: #0cc; font-weight: bold;">  3 </span> 2021-01-06      USD                 0.689332
+<span style="color: #0cc;">===================================================</span>
+</pre></p><p>The table writer can be reconfigured for changing such things as cell
+padding, character used for table borders, and more.
+</p></div><dl class="attributes block"><dt>Definition Classes</dt><dd><a href="../index.html" name="_root_" id="_root_" class="extype">root</a></dd></dl></div></li><li class="current-entities indented1"><a href="Table$.html" title="Provides Table factory." class="object"></a> <a href="Table.html" title="Defines table." class="trait"></a><a href="Table.html" title="Defines table.">Table</a></li><li class="current-entities indented1"><a href="TableBuilder$.html" title="Provides TableBuilder factory." class="object"></a> <a href="TableBuilder.html" title="Defines table builder." class="trait"></a><a href="TableBuilder.html" title="Defines table builder.">TableBuilder</a></li><li class="current-entities indented1"><a href="TableWriter$.html" title="Provides TableWriter factory." class="object"></a> <a href="TableWriter.html" title="Defines table writer." class="trait"></a><a href="TableWriter.html" title="Defines table writer.">TableWriter</a></li></ul></div></div><div id="content"><body class="package value"><div id="definition"><div class="big-circle package">p</div><h1>t2<span class="permalink"><a href="../t2/index.html" title="Permalink"><i class="material-icons"></i></a></span></h1></div><h4 id="signature" class="signature"><span class="modifier_kind"><span class="modifier"></span> <span class="kind">package</span></span> <span class="symbol"><span class="name">t2</span></span></h4><div id="comment" class="fullcommenttop"><div class="comment cmt"><p>Defines types to create, access, and print tables.</p><h4> Getting Started </h4><p>Below is an example of how to use <code>TableBuilder</code> and <code>TableWriter</code>. Using
+these utilities, it builds a <code>Table</code> and writes the content to stdout.</p><pre><span class="cmt">// Build table with first row as table header</span>
+<span class="kw">val</span> table = t2.TableBuilder()
+  .add(<span class="lit">"#"</span>, <span class="lit">"Effective Date"</span>, <span class="lit">"Currency Code"</span>, <span class="lit">"Exchange Rate"</span>)
+  .add(<span class="lit">"1"</span>, <span class="lit">"2021-01-04"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.690236"</span>)
+  .add(<span class="lit">"2"</span>, <span class="lit">"2021-01-05"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.690627"</span>)
+  .add(<span class="lit">"3"</span>, <span class="lit">"2021-01-06"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.689332"</span>)
+  .build()
+
+<span class="cmt">// Create table writer with supplied configuration</span>
+<span class="kw">val</span> writer = t2.TableWriter(
+  <span class="lit">"ansiColorEnabled"</span> -&gt; <span class="lit">"true"</span>,
+  <span class="lit">"tableBorderColor"</span> -&gt; <span class="std">Console</span>.CYAN,
+  <span class="lit">"tableHeaderColor"</span> -&gt; (<span class="std">Console</span>.YELLOW_B ++ <span class="std">Console</span>.BLACK),
+  <span class="lit">"bodyRuleColor"</span>    -&gt; <span class="std">Console</span>.YELLOW,
+  <span class="lit">"rowHeaderEnabled"</span> -&gt; <span class="lit">"true"</span>,
+  <span class="lit">"rowHeaderColor"</span>   -&gt; (<span class="std">Console</span>.BOLD ++ <span class="std">Console</span>.CYAN),
+  <span class="lit">"columnRightAlign"</span> -&gt; <span class="lit">"0,3"</span> <span class="cmt">// Right align first and last columns</span>
+)
+
+<span class="cmt">// Write table to stdout</span>
+writer.write(System.out, table)</pre><p>The generated output would look something like the following if printed to a
+color-enabled terminal.</p><p><pre style="background: black; color: white;">
+<span style="color: #0cc;">===================================================</span>
+<span style="background: #cc0; color: black;">  #  Effective Date  Currency Code  Exchange Rate  </span>
+<span style="color: #cc0;">---------------------------------------------------</span>
+<span style="color: #0cc; font-weight: bold;">  1 </span> 2021-01-04      USD                 0.690236
+<span style="color: #0cc; font-weight: bold;">  2 </span> 2021-01-05      USD                 0.690627
+<span style="color: #0cc; font-weight: bold;">  3 </span> 2021-01-06      USD                 0.689332
+<span style="color: #0cc;">===================================================</span>
+</pre></p><p>The table writer can be reconfigured for changing such things as cell
+padding, character used for table borders, and more.
+</p></div><div class="toggleContainer"><div class="toggle block"><span>Linear Supertypes</span><div class="superTypes hiddenContent"><span name="scala.AnyRef" class="extype">AnyRef</span>, <span name="scala.Any" class="extype">Any</span></div></div></div></div><div id="mbrsel"><div class="toggle"></div><div id="memberfilter"><i class="material-icons arrow"></i><span class="input"><input placeholder="Filter all members" id="mbrsel-input" type="text" accesskey="/"/></span><i class="clear material-icons"></i></div><div id="filterby"><div id="order"><span class="filtertype">Ordering</span><ol><li class="alpha in"><span>Alphabetic</span></li><li class="inherit out"><span>By Inheritance</span></li></ol></div><div class="ancestors"><span class="filtertype">Inherited<br/></span><ol id="linearization"><li class="in" name="t2"><span>t2</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li></ol></div><div class="ancestors"><span class="filtertype"></span><ol><li class="hideall out"><span>Hide All</span></li><li class="showall in"><span>Show All</span></li></ol></div><div id="visbl"><span class="filtertype">Visibility</span><ol><li class="public in"><span>Public</span></li><li class="protected out"><span>Protected</span></li></ol></div></div></div><div id="template"><div id="allMembers"><div id="types" class="types members"><h3>Type Members</h3><ol><li class="indented0 " name="t2.Table" group="Ungrouped" fullComment="yes" data-isabs="true" visbl="pub"><a id="TableextendsAnyRef" class="anchorToMember"></a><a id="Table:Table" class="anchorToMember"></a> <span class="permalink"><a href="../t2/Table.html" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">trait</span></span> <span class="symbol"><a href="Table.html" title="Defines table."><span class="name">Table</span></a><span class="result"> extends <span name="scala.AnyRef" class="extype">AnyRef</span></span></span><p class="shortcomment cmt">Defines table.</p><div class="fullcomment"><div class="comment cmt"><p>Defines table.</p><h4> How to Create Table </h4><p>A <code>Table</code> can be created using a factory defined in companion object, or it
+can be built incrementally using a <code>TableBuilder</code>.</p><p>The two tables created in the example below are effectively the same.</p><pre><span class="cmt">// Create table with data supplied as Seq[Seq[String]]</span>
+<span class="kw">val</span> table1 = t2.Table(
+  <span class="std">Seq</span>(
+    <span class="std">Seq</span>(<span class="lit">"#"</span>, <span class="lit">"Effective Date"</span>, <span class="lit">"Currency Code"</span>, <span class="lit">"Exchange Rate"</span>),
+    <span class="std">Seq</span>(<span class="lit">"1"</span>, <span class="lit">"2021-01-04"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.690236"</span>),
+    <span class="std">Seq</span>(<span class="lit">"2"</span>, <span class="lit">"2021-01-05"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.690627"</span>),
+    <span class="std">Seq</span>(<span class="lit">"3"</span>, <span class="lit">"2021-01-06"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.689332"</span>)
+  )
+)
+
+<span class="cmt">// Incrementally build table by adding value sequences</span>
+<span class="kw">val</span> table2 = t2.TableBuilder()
+  .add(<span class="lit">"#"</span>, <span class="lit">"Effective Date"</span>, <span class="lit">"Currency Code"</span>, <span class="lit">"Exchange Rate"</span>)
+  .add(<span class="lit">"1"</span>, <span class="lit">"2021-01-04"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.690236"</span>)
+  .add(<span class="lit">"2"</span>, <span class="lit">"2021-01-05"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.690627"</span>)
+  .add(<span class="lit">"3"</span>, <span class="lit">"2021-01-06"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.689332"</span>)
+  .build()
+
+<span class="cmt">// Assert equality</span>
+assert(table1.rows == table2.rows)</pre></div><dl class="attributes block"><dt>See also</dt><dd><span class="cmt"><p><a href="Table$.html#forRows(data:Seq[Seq[String]]):t2.Table" name="t2.Table#forRows" id="t2.Table#forRows" class="extmbr">Table.forRows</a>, <a href="Table$.html#forColumns(data:Seq[Seq[String]]):t2.Table" name="t2.Table#forColumns" id="t2.Table#forColumns" class="extmbr">Table.forColumns</a>, <a href="TableBuilder.html" name="t2.TableBuilder" id="t2.TableBuilder" class="extype">TableBuilder</a></p></span></dd></dl></div></li><li class="indented0 " name="t2.TableBuilder" group="Ungrouped" fullComment="yes" data-isabs="true" visbl="pub"><a id="TableBuilderextendsAnyRef" class="anchorToMember"></a><a id="TableBuilder:TableBuilder" class="anchorToMember"></a> <span class="permalink"><a href="../t2/TableBuilder.html" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">trait</span></span> <span class="symbol"><a href="TableBuilder.html" title="Defines table builder."><span class="name">TableBuilder</span></a><span class="result"> extends <span name="scala.AnyRef" class="extype">AnyRef</span></span></span><p class="shortcomment cmt">Defines table builder.</p><div class="fullcomment"><div class="comment cmt"><p>Defines table builder.</p><h4> Usage </h4><p>Below is an example of how to create and use the default <code>TableBuilder</code>.</p><pre><span class="cmt">// Build table with first row as table header</span>
+<span class="kw">val</span> table = t2.TableBuilder()
+  .add(<span class="lit">"#"</span>, <span class="lit">"Effective Date"</span>, <span class="lit">"Currency Code"</span>, <span class="lit">"Exchange Rate"</span>)
+  .add(<span class="lit">"1"</span>, <span class="lit">"2021-01-04"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.690236"</span>)
+  .add(<span class="lit">"2"</span>, <span class="lit">"2021-01-05"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.690627"</span>)
+  .add(<span class="lit">"3"</span>, <span class="lit">"2021-01-06"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.689332"</span>)
+  .build()</pre></div><dl class="attributes block"><dt>See also</dt><dd><span class="cmt"><p><a href="TableBuilder$.html#forRows:t2.TableBuilder" name="t2.TableBuilder#forRows" id="t2.TableBuilder#forRows" class="extmbr">TableBuilder.forRows</a>, <a href="TableBuilder$.html#forColumns:t2.TableBuilder" name="t2.TableBuilder#forColumns" id="t2.TableBuilder#forColumns" class="extmbr">TableBuilder.forColumns</a></p></span></dd></dl></div></li><li class="indented0 " name="t2.TableWriter" group="Ungrouped" fullComment="yes" data-isabs="true" visbl="pub"><a id="TableWriterextendsAnyRef" class="anchorToMember"></a><a id="TableWriter:TableWriter" class="anchorToMember"></a> <span class="permalink"><a href="../t2/TableWriter.html" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">trait</span></span> <span class="symbol"><a href="TableWriter.html" title="Defines table writer."><span class="name">TableWriter</span></a><span class="result"> extends <span name="scala.AnyRef" class="extype">AnyRef</span></span></span><p class="shortcomment cmt">Defines table writer.</p><div class="fullcomment"><div class="comment cmt"><p>Defines table writer.</p><h4> Usage </h4><p>Below is an example of how to create, configure, and use the default
+<code>TableWriter</code>.</p><pre><span class="cmt">// Build table</span>
+<span class="kw">val</span> table = t2.TableBuilder()
+  .add(<span class="lit">"#"</span>, <span class="lit">"Effective Date"</span>, <span class="lit">"Currency Code"</span>, <span class="lit">"Exchange Rate"</span>)
+  .add(<span class="lit">"1"</span>, <span class="lit">"2021-01-04"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.690236"</span>)
+  .add(<span class="lit">"2"</span>, <span class="lit">"2021-01-05"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.690627"</span>)
+  .add(<span class="lit">"3"</span>, <span class="lit">"2021-01-06"</span>, <span class="lit">"USD"</span>, <span class="lit">"0.689332"</span>)
+  .build()
+
+<span class="cmt">// Create table writer with supplied configuration</span>
+<span class="kw">val</span> writer = t2.TableWriter(
+  <span class="lit">"ansiColorEnabled"</span> -&gt; <span class="lit">"true"</span>,
+  <span class="lit">"tableBorderColor"</span> -&gt; <span class="std">Console</span>.CYAN,
+  <span class="lit">"tableHeaderColor"</span> -&gt; (<span class="std">Console</span>.YELLOW_B ++ <span class="std">Console</span>.BLACK),
+  <span class="lit">"bodyRuleColor"</span>    -&gt; <span class="std">Console</span>.YELLOW,
+  <span class="lit">"rowHeaderEnabled"</span> -&gt; <span class="lit">"true"</span>,
+  <span class="lit">"rowHeaderColor"</span>   -&gt; (<span class="std">Console</span>.BOLD ++ <span class="std">Console</span>.CYAN),
+  <span class="lit">"columnRightAlign"</span> -&gt; <span class="lit">"0,3"</span> <span class="cmt">// Right align first and last columns</span>
+)
+
+<span class="cmt">// Write table to stdout</span>
+writer.write(System.out, table)</pre><p>The generated output would look something like the following if printed to a
+color-enabled terminal.</p><p><pre style="background: black; color: white;">
+<span style="color: #0cc;">===================================================</span>
+<span style="background: #cc0; color: black;">  #  Effective Date  Currency Code  Exchange Rate  </span>
+<span style="color: #cc0;">---------------------------------------------------</span>
+<span style="color: #0cc; font-weight: bold;">  1 </span> 2021-01-04      USD                 0.690236
+<span style="color: #0cc; font-weight: bold;">  2 </span> 2021-01-05      USD                 0.690627
+<span style="color: #0cc; font-weight: bold;">  3 </span> 2021-01-06      USD                 0.689332
+<span style="color: #0cc;">===================================================</span>
+</pre></p><p>The table writer can be reconfigured for changing such things as cell
+padding, character used for table borders, and more.
+</p></div><dl class="attributes block"><dt>See also</dt><dd><span class="cmt"><p><a href="TableWriter$.html#apply(config:Map[String,String]):t2.TableWriter" name="t2.TableWriter#apply" id="t2.TableWriter#apply" class="extmbr">TableWriter(Map[String, String])</a>,
+<a href="TableWriter$.html#apply(config:(String,String)*):t2.TableWriter" name="t2.TableWriter#apply" id="t2.TableWriter#apply" class="extmbr">TableWriter((String,String)*)</a></p></span></dd></dl></div></li></ol></div><div class="values members"><h3>Value Members</h3><ol><li class="indented0 " name="t2.Table" group="Ungrouped" fullComment="no" data-isabs="false" visbl="pub"><a id="Table" class="anchorToMember"></a><a id="Table:Table" class="anchorToMember"></a> <span class="permalink"><a href="../t2/Table$.html" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">object</span></span> <span class="symbol"><a href="Table$.html" title="Provides Table factory."><span class="name">Table</span></a></span><p class="shortcomment cmt">Provides <code>Table</code> factory.</p></li><li class="indented0 " name="t2.TableBuilder" group="Ungrouped" fullComment="no" data-isabs="false" visbl="pub"><a id="TableBuilder" class="anchorToMember"></a><a id="TableBuilder:TableBuilder" class="anchorToMember"></a> <span class="permalink"><a href="../t2/TableBuilder$.html" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">object</span></span> <span class="symbol"><a href="TableBuilder$.html" title="Provides TableBuilder factory."><span class="name">TableBuilder</span></a></span><p class="shortcomment cmt">Provides <code>TableBuilder</code> factory.</p></li><li class="indented0 " name="t2.TableWriter" group="Ungrouped" fullComment="no" data-isabs="false" visbl="pub"><a id="TableWriter" class="anchorToMember"></a><a id="TableWriter:TableWriter" class="anchorToMember"></a> <span class="permalink"><a href="../t2/TableWriter$.html" title="Permalink"><i class="material-icons"></i></a></span> <span class="modifier_kind"><span class="modifier"></span> <span class="kind">object</span></span> <span class="symbol"><a href="TableWriter$.html" title="Provides TableWriter factory."><span class="name">TableWriter</span></a></span><p class="shortcomment cmt">Provides <code>TableWriter</code> factory.</p></li></ol></div></div><div id="inheritedMembers"><div name="scala.AnyRef" class="parent"><h3>Inherited from <span name="scala.AnyRef" class="extype">AnyRef</span></h3></div><div name="scala.Any" class="parent"><h3>Inherited from <span name="scala.Any" class="extype">Any</span></h3></div></div><div id="groupedMembers"><div name="Ungrouped" class="group"><h3>Ungrouped</h3></div></div></div><div id="tooltip"></div><div id="footer"></div></body></div></div></div></body></html>
