@@ -26,7 +26,7 @@ import java.io.{ OutputStream, PrintWriter, Writer }
  * `TableWriter`.
  *
  * {{{
- * // Build table
+ * // Build table with first row as table header
  * val table = t2.TableBuilder()
  *   .add("#", "Effective Date", "Currency Code", "Exchange Rate")
  *   .add("1", "2021-01-04", "USD", "0.690236")
@@ -37,11 +37,11 @@ import java.io.{ OutputStream, PrintWriter, Writer }
  * // Create table writer with supplied configuration
  * val writer = t2.TableWriter(
  *   "ansiColorEnabled" -> "true",
- *   "tableBorderColor" -> Console.CYAN,
- *   "tableHeaderColor" -> (Console.YELLOW_B ++ Console.BLACK),
- *   "bodyRuleColor"    -> Console.YELLOW,
+ *   "tableBorderColor" -> "cyan",
+ *   "tableHeaderColor" -> "black,yellowBackground",
+ *   "bodyRuleColor"    -> "yellow",
  *   "rowHeaderEnabled" -> "true",
- *   "rowHeaderColor"   -> (Console.BOLD ++ Console.CYAN),
+ *   "rowHeaderColor"   -> "bold,cyan",
  *   "columnRightAlign" -> "0,3" // Right align first and last columns
  * )
  *
@@ -129,7 +129,7 @@ trait TableWriter {
  * |truncateEnabled     |`"true"`          |
  * <span></span>
  *
- * ^1^ Defined as `AnsiColor` value.
+ * ^1^ Defined as string of `AnsiColor` values.
  *
  * ^2^ Defined as comma- or space-delimited list of column indexes.
  *

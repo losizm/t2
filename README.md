@@ -28,11 +28,11 @@ val table = t2.TableBuilder()
 // Create table writer with supplied configuration
 val writer = t2.TableWriter(
   "ansiColorEnabled" -> "true",
-  "tableBorderColor" -> Console.CYAN,
-  "tableHeaderColor" -> (Console.YELLOW_B ++ Console.BLACK),
-  "bodyRuleColor"    -> Console.YELLOW,
+  "tableBorderColor" -> "cyan",
+  "tableHeaderColor" -> "black,yellowBackground",
+  "bodyRuleColor"    -> "yellow",
   "rowHeaderEnabled" -> "true",
-  "rowHeaderColor"   -> (Console.BOLD ++ Console.CYAN),
+  "rowHeaderColor"   -> "bold,cyan",
   "columnRightAlign" -> "0,3" // Right align first and last columns
 )
 

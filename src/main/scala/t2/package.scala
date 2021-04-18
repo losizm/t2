@@ -34,11 +34,11 @@
  * // Create table writer with supplied configuration
  * val writer = t2.TableWriter(
  *   "ansiColorEnabled" -> "true",
- *   "tableBorderColor" -> Console.CYAN,
- *   "tableHeaderColor" -> (Console.YELLOW_B ++ Console.BLACK),
- *   "bodyRuleColor"    -> Console.YELLOW,
+ *   "tableBorderColor" -> "cyan",
+ *   "tableHeaderColor" -> "black,yellowBackground",
+ *   "bodyRuleColor"    -> "yellow",
  *   "rowHeaderEnabled" -> "true",
- *   "rowHeaderColor"   -> (Console.BOLD ++ Console.CYAN),
+ *   "rowHeaderColor"   -> "bold,cyan",
  *   "columnRightAlign" -> "0,3" // Right align first and last columns
  * )
  *
@@ -59,7 +59,7 @@
  * <span style="color: #0cc;">===================================================</span>
  * </pre>
  *
- * The table writer can be reconfigured for changing such things as cell
- * padding, character used for table borders, and more.
+ * The table writer can be configured for changing such things as cell padding,
+ * character used for table borders, and more.
  */
 package object t2
