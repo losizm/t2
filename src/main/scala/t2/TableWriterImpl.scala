@@ -16,10 +16,11 @@
 package t2
 
 import java.io.Writer
+import scala.io.AnsiColor
 
-private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
+private class TableWriterImpl(config: Map[String, String]) extends TableWriter with AnsiColor {
   private val ansiColorEnabled   = configBoolean("ansiColorEnabled", false)
-  private val resetColor         = if (ansiColorEnabled) Console.RESET else ""
+  private val resetColor         = if (ansiColorEnabled) RESET else ""
   private val defaultColor       = configColor("defaultColor", resetColor)
   private val leftMargin         = " " * configInt("leftMarginSize", 0)
   private val rightMargin        = " " * configInt("rightMarginSize", 0)
@@ -177,16 +178,10 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
   private def configColor(name: String, default: => String): String =
     ansiColorEnabled match {
       case true  =>
-        config.get(name).map(_.toLowerCase).map {
-          case "black"   => Console.BLACK
-          case "red"     => Console.RED
-          case "green"   => Console.GREEN
-          case "yellow"  => Console.YELLOW
-          case "blue"    => Console.BLUE
-          case "magenta" => Console.MAGENTA
-          case "cyan"    => Console.CYAN
-          case "white"   => Console.WHITE
-          case value     => value
+        val words = "(\\w+(?:[,\\s]+\\w+)*)".r
+        config.get(name).map {
+          case words(value) => toAnsiColor(value)
+          case value        => value
         }.getOrElse(default)
 
       case false => ""
@@ -197,4 +192,36 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
       .get(name)
       .map(_.split("[,\\s]+").map(_.toInt).toSet)
       .getOrElse(default)
+
+  private def toAnsiColor(value: String): String =
+    value
+      .split("[,\\s]+")
+      .map(toAnsiCode)
+      .mkString
+
+  private def toAnsiCode(value: String): String =
+    value.toLowerCase match {
+      case "bold"              => BOLD
+      case "underlined"        => UNDERLINED
+      case "blink"             => BLINK
+      case "reversed"          => REVERSED
+      case "reset"             => RESET
+      case "black"             => BLACK
+      case "red"               => RED
+      case "green"             => GREEN
+      case "yellow"            => YELLOW
+      case "blue"              => BLUE
+      case "magenta"           => MAGENTA
+      case "cyan"              => CYAN
+      case "white"             => WHITE
+      case "blackbackground"   => BLACK_B
+      case "redbackground"     => RED_B
+      case "greenbackground"   => GREEN_B
+      case "yellowbackground"  => YELLOW_B
+      case "bluebackground"    => BLUE_B
+      case "magentabackground" => MAGENTA_B
+      case "cyanbackground"    => CYAN_B
+      case "whitebackground"   => WHITE_B
+      case _                   => ""
+    }
 }

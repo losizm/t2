@@ -101,44 +101,72 @@ trait TableWriter {
  *
  * The following keys can be supplied to configure writer.
  *
- * |Key                 |Default Value   |
- * |--------------------|----------------|
- * |ansiColorEnabled    |`"false"`       |
- * |defaultColor^1^     |`Console.RESET` |
- * |leftMarginSize      |`"0"`           |
- * |rightMarginSize     |`"0"`           |
- * |tableBorderEnabled  |`"true"`        |
- * |tableBorderColor^1^ |defaultColor    |
- * |tableBorderChar     |`"="`           |
- * |tableHeaderEnabled  |`"true"`        |
- * |tableHeaderColor^1^ |defaultColor    |
- * |tableFooterEnabled  |`"false"`       |
- * |tableFooterColor^1^ |defaultColor    |
- * |bodyRuleEnabled     |`"true"`        |
- * |bodyRuleColor^1^    |defaultColor    |
- * |bodyRuleChar        |`"-"`           |
- * |rowHeaderEnabled    |`"false"`       |
- * |rowHeaderColor^1^   |defaultColor    |
- * |columnRightAlign^2^ |`""`            |
- * |cellColor^1^        |defaultColor    |
- * |cellPadSize         |`"1"`           |
- * |cellSpaceSize       |`"0"`           |
- * |cellSpaceColor^1^   |`""`            |
- * |maxValueSize        |`"20"`          |
- * |nullValue           |`""`            |
- * |truncateEnabled     |`"true"`        |
+ * |Key                 |Default Value     |
+ * |--------------------|------------------|
+ * |ansiColorEnabled    |`"false"`         |
+ * |defaultColor^1^     |`AnsiColor.RESET` |
+ * |leftMarginSize      |`"0"`             |
+ * |rightMarginSize     |`"0"`             |
+ * |tableBorderEnabled  |`"true"`          |
+ * |tableBorderColor^1^ |defaultColor      |
+ * |tableBorderChar     |`"="`             |
+ * |tableHeaderEnabled  |`"true"`          |
+ * |tableHeaderColor^1^ |defaultColor      |
+ * |tableFooterEnabled  |`"false"`         |
+ * |tableFooterColor^1^ |defaultColor      |
+ * |bodyRuleEnabled     |`"true"`          |
+ * |bodyRuleColor^1^    |defaultColor      |
+ * |bodyRuleChar        |`"-"`             |
+ * |rowHeaderEnabled    |`"false"`         |
+ * |rowHeaderColor^1^   |defaultColor      |
+ * |columnRightAlign^2^ |`""`              |
+ * |cellColor^1^        |defaultColor      |
+ * |cellPadSize         |`"1"`             |
+ * |cellSpaceSize       |`"0"`             |
+ * |cellSpaceColor^1^   |`""`              |
+ * |maxValueSize        |`"20"`            |
+ * |nullValue           |`""`              |
+ * |truncateEnabled     |`"true"`          |
  * <span></span>
  *
- * ^1^ Defined as `AnsiColor` value; also accepts values `"black"`, `"red"`,
- * `"green"`, `"yellow"`, `"blue"`, `"magenta"`, `"cyan"`, and `"white"`.
+ * ^1^ Defined as `AnsiColor` value.
  *
  * ^2^ Defined as comma- or space-delimited list of column indexes.
+ *
+ * @define ansicolors
+ *
+ * ANSI colors can also be suppplied as a comma- or space-delimited list of
+ * any combination of following values:
+ *
+ *   - bold
+ *   - underlined
+ *   - blink
+ *   - reversed
+ *   - reset
+ *   - black
+ *   - red
+ *   - green
+ *   - yellow
+ *   - blue
+ *   - magenta
+ *   - cyan
+ *   - white
+ *   - blackBackground
+ *   - redBackground
+ *   - greenBackground
+ *   - yellowBackground
+ *   - blueBackground
+ *   - magentaBackground
+ *   - cyanBackground
+ *   - whiteBackground
  */
 object TableWriter {
   /**
    * $writerdoc
    *
    * @param config writer configuration
+   *
+   * @note $ansicolors
    */
   def apply(config: (String, String)*): TableWriter =
     apply(config.toMap)
@@ -147,6 +175,8 @@ object TableWriter {
    * $writerdoc
    *
    * @param config writer configuration
+   *
+   * @note $ansicolors
    */
   def apply(config: Map[String, String]): TableWriter =
     new TableWriterImpl(config)

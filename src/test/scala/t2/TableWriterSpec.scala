@@ -18,7 +18,7 @@ package t2
 
 import java.io.StringWriter
 
-class TableWriterSpec extends org.scalatest.flatspec.AnyFlatSpec {
+class TableWriterSpec extends org.scalatest.flatspec.AnyFlatSpec with scala.io.AnsiColor {
   val config = Map(
     "ansiColorEnabled"   -> "true",
     "defaultColor"       -> "white",
@@ -28,20 +28,20 @@ class TableWriterSpec extends org.scalatest.flatspec.AnyFlatSpec {
     "tableBorderColor"   -> "red",
     "tableBorderChar"    -> "x",
     "tableHeaderEnabled" -> "true",
-    "tableHeaderColor"   -> s"${Console.BOLD}${Console.YELLOW_B}${Console.BLACK}",
+    "tableHeaderColor"   -> "bold,black,yellowBackground",
     "tableFooterEnabled" -> "true",
-    "tableFooterColor"   -> s"${Console.BOLD}${Console.MAGENTA_B}${Console.BLACK}",
+    "tableFooterColor"   -> s"${BOLD}${MAGENTA_B}${BLACK}",
     "bodyRuleEnabled"    -> "true",
     "bodyRuleColor"      -> "yellow",
     "bodyRuleChar"       -> "o",
     "rowHeaderEnabled"   -> "true",
-    "rowHeaderColor"     -> s"${Console.BOLD}${Console.GREEN_B}${Console.RED}",
+    "rowHeaderColor"     -> s"${BOLD}${GREEN_B}${RED}",
     "columnMaxSize"      -> "20",
     "columnRightAlign"   -> "0   4,, 5",
-    "cellColor"          -> s"${Console.WHITE_B}${Console.BLUE}",
+    "cellColor"          -> s"${WHITE_B}${BLUE}",
     "cellPadSize"        -> "2",
     "cellSpaceSize"      -> "1",
-    "cellSpaceColor"     -> Console.BLACK_B,
+    "cellSpaceColor"     -> BLACK_B,
     "maxValueSize"       -> "12",
     "nullValue"          -> " ",
     "truncateEnabled"    -> "true"
