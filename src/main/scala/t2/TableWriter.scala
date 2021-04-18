@@ -36,13 +36,13 @@ import java.io.{ OutputStream, PrintWriter, Writer }
  *
  * // Create table writer with supplied configuration
  * val writer = t2.TableWriter(
- *   "ansiColorEnabled"   -> "true",
- *   "tableBorderColor"   -> Console.CYAN,
- *   "tableHeaderColor"   -> (Console.YELLOW_B ++ Console.BLACK),
- *   "bodySeparatorColor" -> Console.YELLOW,
- *   "rowHeaderEnabled"   -> "true",
- *   "rowHeaderColor"     -> (Console.BOLD ++ Console.CYAN),
- *   "columnRightAlign"   -> "0,3" // Right align first and last columns
+ *   "ansiColorEnabled" -> "true",
+ *   "tableBorderColor" -> Console.CYAN,
+ *   "tableHeaderColor" -> (Console.YELLOW_B ++ Console.BLACK),
+ *   "bodyRuleColor"    -> Console.YELLOW,
+ *   "rowHeaderEnabled" -> "true",
+ *   "rowHeaderColor"   -> (Console.BOLD ++ Console.CYAN),
+ *   "columnRightAlign" -> "0,3" // Right align first and last columns
  * )
  *
  * // Write table to stdout
@@ -101,32 +101,32 @@ trait TableWriter {
  *
  * The following keys can be supplied to configure writer.
  *
- * |Key                   |Default Value   |
- * |----------------------|----------------|
- * |ansiColorEnabled      |`"false"`       |
- * |defaultColor^1^       |`Console.RESET` |
- * |leftMarginSize        |`"0"`           |
- * |rightMarginSize       |`"0"`           |
- * |tableBorderEnabled    |`"true"`        |
- * |tableBorderColor^1^   |defaultColor    |
- * |tableBorderChar       |`"="`           |
- * |tableHeaderEnabled    |`"true"`        |
- * |tableHeaderColor^1^   |defaultColor    |
- * |tableFooterEnabled    |`"false"`       |
- * |tableFooterColor^1^   |defaultColor    |
- * |bodySeparatorEnabled  |`"true"`        |
- * |bodySeparatorColor^1^ |defaultColor    |
- * |bodySeparatorChar     |`"-"`           |
- * |rowHeaderEnabled      |`"false"`       |
- * |rowHeaderColor^1^     |defaultColor    |
- * |columnRightAlign^2^   |`""`            |
- * |cellColor^1^          |defaultColor    |
- * |cellPadSize           |`"1"`           |
- * |cellSpaceSize         |`"0"`           |
- * |cellSpaceColor^1^     |`""`            |
- * |maxValueSize          |`"20"`          |
- * |nullValue             |`""`            |
- * |truncateEnabled       |`"true"`        |
+ * |Key                 |Default Value   |
+ * |--------------------|----------------|
+ * |ansiColorEnabled    |`"false"`       |
+ * |defaultColor^1^     |`Console.RESET` |
+ * |leftMarginSize      |`"0"`           |
+ * |rightMarginSize     |`"0"`           |
+ * |tableBorderEnabled  |`"true"`        |
+ * |tableBorderColor^1^ |defaultColor    |
+ * |tableBorderChar     |`"="`           |
+ * |tableHeaderEnabled  |`"true"`        |
+ * |tableHeaderColor^1^ |defaultColor    |
+ * |tableFooterEnabled  |`"false"`       |
+ * |tableFooterColor^1^ |defaultColor    |
+ * |bodyRuleEnabled     |`"true"`        |
+ * |bodyRuleColor^1^    |defaultColor    |
+ * |bodyRuleChar        |`"-"`           |
+ * |rowHeaderEnabled    |`"false"`       |
+ * |rowHeaderColor^1^   |defaultColor    |
+ * |columnRightAlign^2^ |`""`            |
+ * |cellColor^1^        |defaultColor    |
+ * |cellPadSize         |`"1"`           |
+ * |cellSpaceSize       |`"0"`           |
+ * |cellSpaceColor^1^   |`""`            |
+ * |maxValueSize        |`"20"`          |
+ * |nullValue           |`""`            |
+ * |truncateEnabled     |`"true"`        |
  * <span></span>
  *
  * ^1^ Defined as `AnsiColor` value; also accepts values `"black"`, `"red"`,

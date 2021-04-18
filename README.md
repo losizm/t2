@@ -27,13 +27,13 @@ val table = t2.TableBuilder()
 
 // Create table writer with supplied configuration
 val writer = t2.TableWriter(
-  "ansiColorEnabled"   -> "true",
-  "tableBorderColor"   -> Console.CYAN,
-  "tableHeaderColor"   -> (Console.YELLOW_B ++ Console.BLACK),
-  "columnRightAlign"   -> "0,3", // Right align first and last columns
-  "rowHeaderEnabled"   -> "true",
-  "rowHeaderColor"     -> (Console.BOLD ++ Console.CYAN),
-  "bodySeparatorColor" -> Console.YELLOW
+  "ansiColorEnabled" -> "true",
+  "tableBorderColor" -> Console.CYAN,
+  "tableHeaderColor" -> (Console.YELLOW_B ++ Console.BLACK),
+  "columnRightAlign" -> "0,3", // Right align first and last columns
+  "rowHeaderEnabled" -> "true",
+  "rowHeaderColor"   -> (Console.BOLD ++ Console.CYAN),
+  "bodyRuleColor"    -> Console.YELLOW
 )
 
 // Write table to stdout

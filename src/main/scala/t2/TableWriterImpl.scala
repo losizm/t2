@@ -18,31 +18,31 @@ package t2
 import java.io.Writer
 
 private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
-  private val ansiColorEnabled     = configBoolean("ansiColorEnabled", false)
-  private val resetColor           = if (ansiColorEnabled) Console.RESET else ""
-  private val defaultColor         = configColor("defaultColor", resetColor)
-  private val leftMargin           = " " * configInt("leftMarginSize", 0)
-  private val rightMargin          = " " * configInt("rightMarginSize", 0)
-  private val tableBorderEnabled   = configBoolean("tableBorderEnabled", true)
-  private val tableBorderChar      = configChar("tableBorderChar", "=")
-  private val tableBorderColor     = configColor("tableBorderColor", defaultColor)
-  private val tableHeaderEnabled   = configBoolean("tableHeaderEnabled", true)
-  private val tableHeaderColor     = configColor("tableHeaderColor", defaultColor)
-  private val tableFooterEnabled   = configBoolean("tableFooterEnabled", false)
-  private val tableFooterColor     = configColor("tableFooterColor", defaultColor)
-  private val columnRightAlign     = configAlignment("columnRightAlign", Set.empty)
-  private val rowHeaderEnabled     = configBoolean("rowHeaderEnabled", false)
-  private val rowHeaderColor       = configColor("rowHeaderColor", defaultColor)
-  private val bodySeparatorEnabled = configBoolean("bodySeparatorEnabled", true)
-  private val bodySeparatorChar    = configChar("bodySeparatorChar", "-")
-  private val bodySeparatorColor   = configColor("bodySeparatorColor", defaultColor)
-  private val cellColor            = configColor("cellColor", defaultColor)
-  private val cellPad              = " " * configInt("cellPadSize", 1)
-  private val cellSpaceSize        = configInt("cellSpaceSize", 0)
-  private val cellSpace            = configColor("cellSpaceColor", "") ++ (" " * cellSpaceSize) ++ resetColor
-  private val maxValueSize         = configInt("maxValueSize", 20)
-  private val nullValue            = configString("nullValue", "")
-  private val truncateEnabled      = configBoolean("truncateEnabled", true)
+  private val ansiColorEnabled   = configBoolean("ansiColorEnabled", false)
+  private val resetColor         = if (ansiColorEnabled) Console.RESET else ""
+  private val defaultColor       = configColor("defaultColor", resetColor)
+  private val leftMargin         = " " * configInt("leftMarginSize", 0)
+  private val rightMargin        = " " * configInt("rightMarginSize", 0)
+  private val tableBorderEnabled = configBoolean("tableBorderEnabled", true)
+  private val tableBorderChar    = configChar("tableBorderChar", "=")
+  private val tableBorderColor   = configColor("tableBorderColor", defaultColor)
+  private val tableHeaderEnabled = configBoolean("tableHeaderEnabled", true)
+  private val tableHeaderColor   = configColor("tableHeaderColor", defaultColor)
+  private val tableFooterEnabled = configBoolean("tableFooterEnabled", false)
+  private val tableFooterColor   = configColor("tableFooterColor", defaultColor)
+  private val bodyRuleEnabled    = configBoolean("bodyRuleEnabled", true)
+  private val bodyRuleColor      = configColor("bodyRuleColor", defaultColor)
+  private val bodyRuleChar       = configChar("bodyRuleChar", "-")
+  private val rowHeaderEnabled   = configBoolean("rowHeaderEnabled", false)
+  private val rowHeaderColor     = configColor("rowHeaderColor", defaultColor)
+  private val columnRightAlign   = configAlignment("columnRightAlign", Set.empty)
+  private val cellColor          = configColor("cellColor", defaultColor)
+  private val cellPad            = " " * configInt("cellPadSize", 1)
+  private val cellSpaceSize      = configInt("cellSpaceSize", 0)
+  private val cellSpace          = configColor("cellSpaceColor", "") ++ (" " * cellSpaceSize) ++ resetColor
+  private val maxValueSize       = configInt("maxValueSize", 20)
+  private val nullValue          = configString("nullValue", "")
+  private val truncateEnabled    = configBoolean("truncateEnabled", true)
 
   def write(out: Writer, table: Table): Unit = {
     val header    = headerRow(table)
@@ -53,7 +53,7 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
     val footerFmt = footerFormat(table)
     val bodyFmt   = bodyFormat(table)
     val border    = horizontalRule(size, tableBorderChar)
-    val separator = horizontalRule(size, bodySeparatorChar)
+    val bodyRule  = horizontalRule(size, bodyRuleChar)
 
     if (tableBorderEnabled)
       out.write(output("%s", border, tableBorderColor))
@@ -61,8 +61,8 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
     header.foreach { row =>
       out.write(output(headerFmt, row))
 
-      if (bodySeparatorEnabled)
-        out.write(output("%s", separator, bodySeparatorColor))
+      if (bodyRuleEnabled)
+        out.write(output("%s", bodyRule, bodyRuleColor))
     }
 
     body.foreach { row =>
@@ -70,8 +70,8 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter {
     }
 
     footer.foreach { row =>
-      if (bodySeparatorEnabled)
-        out.write(output("%s", separator, bodySeparatorColor))
+      if (bodyRuleEnabled)
+        out.write(output("%s", bodyRule, bodyRuleColor))
 
       out.write(output(footerFmt, row))
     }
