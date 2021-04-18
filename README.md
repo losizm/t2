@@ -8,7 +8,7 @@ Utility for text tables.
 Add **t2** as a dependency to your project:
 
 ```scala
-libraryDependencies += "com.github.losizm" %% "t2" % "0.3.0"
+libraryDependencies += "com.github.losizm" %% "t2" % "0.4.0"
 ```
 
 ## Usage
@@ -30,10 +30,10 @@ val writer = t2.TableWriter(
   "ansiColorEnabled" -> "true",
   "tableBorderColor" -> Console.CYAN,
   "tableHeaderColor" -> (Console.YELLOW_B ++ Console.BLACK),
-  "columnRightAlign" -> "0,3", // Right align first and last columns
+  "bodyRuleColor"    -> Console.YELLOW,
   "rowHeaderEnabled" -> "true",
   "rowHeaderColor"   -> (Console.BOLD ++ Console.CYAN),
-  "bodyRuleColor"    -> Console.YELLOW
+  "columnRightAlign" -> "0,3" // Right align first and last columns
 )
 
 // Write table to stdout
