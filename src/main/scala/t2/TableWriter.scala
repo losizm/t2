@@ -62,8 +62,8 @@ import java.io.{ OutputStream, PrintWriter, Writer }
  * <span style="color: #0cc;">===================================================</span>
  * </pre>
  *
- * The table writer can be reconfigured for changing such things as cell
- * padding, character used for table borders, and more.
+ * The table writer can be configured for changing such things as cell padding,
+ * character used for table borders, and more.
  *
  * @see [[t2.TableWriter$.apply(config:Map[String,String])* TableWriter(Map[String, String])]],
  * [[t2.TableWriter$.apply(config:(String,String)*)* TableWriter((String,String)*)]]
@@ -138,11 +138,12 @@ trait TableWriter {
  * ANSI colors can also be suppplied as a comma- or space-delimited list of
  * any combination of following values:
  *
+ *   - reset
  *   - bold
  *   - underlined
  *   - blink
  *   - reversed
- *   - reset
+ *   - invisible
  *   - black
  *   - red
  *   - green

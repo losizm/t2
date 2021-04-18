@@ -201,11 +201,12 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter w
 
   private def toAnsiCode(value: String): String =
     value.toLowerCase match {
+      case "reset"             => RESET
       case "bold"              => BOLD
       case "underlined"        => UNDERLINED
       case "blink"             => BLINK
       case "reversed"          => REVERSED
-      case "reset"             => RESET
+      case "invisible"         => INVISIBLE
       case "black"             => BLACK
       case "red"               => RED
       case "green"             => GREEN
