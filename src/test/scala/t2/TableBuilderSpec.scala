@@ -15,7 +15,7 @@
  */
 package t2
 
-class TableBuilderSpec extends org.scalatest.flatspec.AnyFlatSpec with TableData {
+class TableBuilderSpec extends org.scalatest.flatspec.AnyFlatSpec with TableData:
   it should "create row-oriented table" in {
     val builder = TableBuilder.forRows
     check(buildTable(builder, goodRows))
@@ -48,4 +48,3 @@ class TableBuilderSpec extends org.scalatest.flatspec.AnyFlatSpec with TableData
 
   private def buildTable(builder: TableBuilder, data: Seq[Seq[String]]): Table =
     builder.addAll(data).build()
-}

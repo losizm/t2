@@ -18,7 +18,7 @@ package t2
 
 import java.io.StringWriter
 
-class TableWriterSpec extends org.scalatest.flatspec.AnyFlatSpec with scala.io.AnsiColor {
+class TableWriterSpec extends org.scalatest.flatspec.AnyFlatSpec with scala.io.AnsiColor:
   val config = Map(
     "ansiColorEnabled"   -> "true",
     "defaultColor"       -> "white",
@@ -69,10 +69,9 @@ class TableWriterSpec extends org.scalatest.flatspec.AnyFlatSpec with scala.io.A
   )
 
   it should "write table with ANSI colors" in {
-    val out = new StringWriter()
+    val out = StringWriter()
     val writer = TableWriter(config)
     writer.write(out, Table(tableHeader +: tableData))
 
     info("table output:\n" + out.toString)
   }
-}

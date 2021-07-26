@@ -17,28 +17,26 @@ package t2
 
 import scala.collection.mutable.ListBuffer
 
-private class TableBuilderImpl(val isRowOriented: Boolean) extends TableBuilder {
-  private val data = new ListBuffer[Seq[String]]
+private class TableBuilderImpl(val isRowOriented: Boolean) extends TableBuilder:
+  private val data = ListBuffer[Seq[String]]()
 
-  def rowCount = isRowOriented match {
+  def rowCount = isRowOriented match
     case true  => orientedCount
     case false => transposedCount
-  }
 
-  def columnCount = isRowOriented match {
+  def columnCount = isRowOriented match
     case true  => transposedCount
     case false => orientedCount
-  }
 
   def add(values: Seq[String]) = synchronized {
-    if (values == null)
-      throw new NullPointerException()
+    if values == null then
+      throw NullPointerException()
 
-    if (values.isEmpty)
-      throw new IllegalArgumentException("No values")
+    if values.isEmpty then
+      throw IllegalArgumentException("No values")
 
-    if (values.size != transposedCount && transposedCount != 0)
-      throw new IllegalArgumentException("Wrong number of values")
+    if values.size != transposedCount && transposedCount != 0 then
+      throw IllegalArgumentException("Wrong number of values")
 
     data += values
     this
@@ -69,4 +67,3 @@ private class TableBuilderImpl(val isRowOriented: Boolean) extends TableBuilder 
 
   private def transposedCount =
     synchronized(data.headOption.map(_.size).getOrElse(0))
-}

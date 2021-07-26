@@ -18,7 +18,7 @@ package t2
 /**
  * Defines table.
  *
- * == How to Create Table ==
+ * ## How to Create Table
  *
  * A `Table` can be created using a factory defined in companion object, or it
  * can be built incrementally using a `TableBuilder`.
@@ -50,7 +50,7 @@ package t2
  *
  * @see [[Table.forRows]], [[Table.forColumns]], [[TableBuilder]]
  */
-trait Table {
+trait Table:
   /** Gets row count. */
   def rowCount: Int
 
@@ -84,10 +84,9 @@ trait Table {
    * @param column column index
    */
   def apply(row: Int, column: Int): String
-}
 
 /** Provides `Table` factory. */
-object Table {
+object Table:
   /**
    * Creates table with supplied data.
    *
@@ -97,14 +96,13 @@ object Table {
    * @return row-oriented table if `rowOriented`; otherwise, column-oriented
    * table
    */
-  def apply(data: Seq[Seq[String]], rowOriented: Boolean = true): Table = {
+  def apply(data: Seq[Seq[String]], rowOriented: Boolean = true): Table =
     data.headOption.map(_.size).foreach { size =>
-      if (!data.tail.forall(_.size == size))
-        throw new IllegalArgumentException("Inconsistent table data")
+      if !data.tail.forall(_.size == size) then
+        throw IllegalArgumentException("Inconsistent table data")
     }
 
-    new TableImpl(data, rowOriented)
-  }
+    TableImpl(data, rowOriented)
 
   /**
    * Creates row-oriented table with supplied data.
@@ -121,4 +119,3 @@ object Table {
    */
   def forColumns(data: Seq[Seq[String]]): Table =
     apply(data, false)
-}

@@ -18,7 +18,7 @@ package t2
 /**
  * Defines table builder.
  *
- * == Usage ==
+ * ## Usage
  *
  * Below is an example of how to create and use the default `TableBuilder`.
  *
@@ -34,7 +34,7 @@ package t2
  *
  * @see [[TableBuilder.forRows]], [[TableBuilder.forColumns]]
  */
-trait TableBuilder {
+trait TableBuilder:
   /** Gets current row count. */
   def rowCount: Int
 
@@ -117,10 +117,9 @@ trait TableBuilder {
    * @note Builder is reset after building table.
    */
   def build(): Table
-}
 
 /** Provides `TableBuilder` factory. */
-object TableBuilder {
+object TableBuilder:
   /**
    * Creates table builder for specified orientation.
    *
@@ -130,7 +129,7 @@ object TableBuilder {
    * builder
    */
   def apply(rowOriented: Boolean = true): TableBuilder =
-    new TableBuilderImpl(rowOriented)
+    TableBuilderImpl(rowOriented)
 
   /** Creates row-oriented table builder. */
   def forRows: TableBuilder =
@@ -139,4 +138,3 @@ object TableBuilder {
   /** Creates column-oriented table builder. */
   def forColumns: TableBuilder =
     apply(false)
-}

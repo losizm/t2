@@ -2,16 +2,19 @@
 
 Utility for text tables.
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.github.losizm/t2_2.13.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.losizm%22%20AND%20a:%22t2_2.13%22)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.losizm/t2_3.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.losizm%22%20AND%20a:%22t2_3%22)
 
 ## Getting Started
-Add **t2** as a dependency to your project:
+To get started, add **t2** to your project:
 
 ```scala
-libraryDependencies += "com.github.losizm" %% "t2" % "0.4.1"
+libraryDependencies += "com.github.losizm" %% "t2" % "0.5.0"
 ```
 
-## Usage
+_**NOTE**: Starting with version 0.5, **t2** is written for Scala 3
+ exclusively. See previous releases for compatibility with Scala 2.12 and 2.13._
+
+### Usage
 
 Below is an example of **t2** in action. Here it builds a table and writes the
 content to stdout.
@@ -41,20 +44,20 @@ writer.write(System.out, table)
 ```
 
 The generated output would look something like the following if printed to a
-color-enabled terminal.
+color-enabled terminal:
 
 <div style="background: #111">
   <img style="padding: 0.2em;" src="images/table.png" width="470" />
 </div>
 
-Table output can be restyled using configuration for such things as changing
-cell padding, character used for table borders, and more.
+Table output can be styled using configuration for such things as changing cell
+padding, character used for table borders, and more.
 
 ## API Documentation
 
-See [scaladoc](https://losizm.github.io/t2/latest/api/t2/index.html)
+See [scaladoc](https://losizm.github.io/t2/latest/api/t2.html)
 for additional details.
 
 ## License
 **t2** is licensed under the Apache License, Version 2. See [LICENSE](LICENSE)
-file for more information.
+for more information.

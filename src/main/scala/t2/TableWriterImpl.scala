@@ -18,9 +18,9 @@ package t2
 import java.io.Writer
 import scala.io.AnsiColor
 
-private class TableWriterImpl(config: Map[String, String]) extends TableWriter with AnsiColor {
+private class TableWriterImpl(config: Map[String, String]) extends TableWriter with AnsiColor:
   private val ansiColorEnabled   = configBoolean("ansiColorEnabled", false)
-  private val resetColor         = if (ansiColorEnabled) RESET else ""
+  private val resetColor         = if ansiColorEnabled then RESET else ""
   private val defaultColor       = configColor("defaultColor", resetColor)
   private val leftMargin         = " " * configInt("leftMarginSize", 0)
   private val rightMargin        = " " * configInt("rightMarginSize", 0)
@@ -45,7 +45,7 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter w
   private val nullValue          = configString("nullValue", "")
   private val truncateEnabled    = configBoolean("truncateEnabled", true)
 
-  def write(out: Writer, table: Table): Unit = {
+  def write(out: Writer, table: Table): Unit =
     val header    = headerRow(table)
     val footer    = footerRow(table)
     val body      = bodyRows(table)
@@ -56,13 +56,13 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter w
     val border    = horizontalRule(size, tableBorderChar)
     val bodyRule  = horizontalRule(size, bodyRuleChar)
 
-    if (tableBorderEnabled)
+    if tableBorderEnabled then
       out.write(output("%s", border, tableBorderColor))
 
     header.foreach { row =>
       out.write(output(headerFmt, row))
 
-      if (bodyRuleEnabled)
+      if bodyRuleEnabled then
         out.write(output("%s", bodyRule, bodyRuleColor))
     }
 
@@ -71,31 +71,30 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter w
     }
 
     footer.foreach { row =>
-      if (bodyRuleEnabled)
+      if bodyRuleEnabled then
         out.write(output("%s", bodyRule, bodyRuleColor))
 
       out.write(output(footerFmt, row))
     }
 
-    if (tableBorderEnabled)
+    if tableBorderEnabled then
       out.write(output("%s", border, tableBorderColor))
-  }
 
   private def output(format: String, row: String, color: String): String =
     String.format(leftMargin ++ color ++ format ++ resetColor ++ rightMargin ++ "%n", row)
 
   private def output(format: String, row: Seq[String]): String =
-    String.format(leftMargin ++ format ++ rightMargin ++ "%n", row.map(adjustValue) : _*)
+    String.format(leftMargin ++ format ++ rightMargin ++ "%n", row.map(adjustValue)*)
 
   private def headerRow(table: Table): Option[Seq[String]] =
-    if (tableHeaderEnabled) table.rows.headOption else None
+    if tableHeaderEnabled then table.rows.headOption else None
 
   private def bodyRows(table: Table): Seq[Seq[String]] =
-    (if (tableHeaderEnabled) table.rows.tail else table.rows)
-      .dropRight(if (tableFooterEnabled) 1 else 0)
+    (if tableHeaderEnabled then table.rows.tail else table.rows)
+      .dropRight(if tableFooterEnabled then 1 else 0)
 
   private def footerRow(table: Table): Option[Seq[String]] =
-    if (tableFooterEnabled) table.rows.tail.lastOption else None
+    if tableFooterEnabled then table.rows.tail.lastOption else None
 
   private def rowSize(table: Table): Int =
     columnSizes(table).sum +
@@ -107,7 +106,7 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter w
       .zipWithIndex
       .map {
         case (size, index) =>
-          if (columnRightAlign.contains(index))
+          if columnRightAlign.contains(index) then
             s"${cellPad}%${size}s${cellPad}"
           else
             s"${cellPad}%-${size}s${cellPad}"
@@ -119,7 +118,7 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter w
       .zipWithIndex
       .map {
         case (size, index) =>
-          if (columnRightAlign.contains(index))
+          if columnRightAlign.contains(index) then
             s"${cellPad}%${size}s${cellPad}"
           else
             s"${cellPad}%-${size}s${cellPad}"
@@ -127,20 +126,20 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter w
       }.mkString(tableFooterColor, cellSpace ++ tableFooterColor, resetColor)
 
   private def bodyFormat(table: Table): String = {
-    val leadColor  = if (rowHeaderEnabled) rowHeaderColor else cellColor
-    val trailColor = if (rowHeaderEnabled) resetColor ++ cellColor else ""
+    val leadColor  = if rowHeaderEnabled then rowHeaderColor else cellColor
+    val trailColor = if rowHeaderEnabled then resetColor ++ cellColor else ""
 
     columnSizes(table)
       .zipWithIndex
       .map {
         case (size, 0)  =>
-          if (columnRightAlign.contains(0))
+          if columnRightAlign.contains(0) then
             s"${cellPad}%${size}s${cellPad}${trailColor}"
           else
             s"${cellPad}%-${size}s${cellPad}${trailColor}"
 
         case (size, index) =>
-          if (columnRightAlign.contains(index))
+          if columnRightAlign.contains(index) then
             s"${cellPad}%${size}s${cellPad}"
           else
             s"${cellPad}%-${size}s${cellPad}"
@@ -155,13 +154,12 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter w
     char * size
 
   private def adjustValue(value: String): String =
-    truncateEnabled match {
+    truncateEnabled match
       case true  => replaceNull(value).take(maxValueSize)
       case false => replaceNull(value)
-    }
 
   private def replaceNull(value: String): String =
-    if (value == null) nullValue else value
+    if value == null then nullValue else value
 
   private def configString(name: String, default: => String): String =
     config.get(name).getOrElse(default)
@@ -176,7 +174,7 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter w
     config.get(name).map(_.take(1)).getOrElse(default)
 
   private def configColor(name: String, default: => String): String =
-    ansiColorEnabled match {
+    ansiColorEnabled match
       case true  =>
         val words = "(\\w+(?:[,\\s]+\\w+)*)".r
         config.get(name).map {
@@ -185,7 +183,6 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter w
         }.getOrElse(default)
 
       case false => ""
-    }
 
   private def configAlignment(name: String, default: => Set[Int]): Set[Int] =
     config
@@ -200,7 +197,7 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter w
       .mkString
 
   private def toAnsiCode(value: String): String =
-    value.toLowerCase match {
+    value.toLowerCase match
       case "reset"             => RESET
       case "bold"              => BOLD
       case "underlined"        => UNDERLINED
@@ -224,5 +221,3 @@ private class TableWriterImpl(config: Map[String, String]) extends TableWriter w
       case "cyanbackground"    => CYAN_B
       case "whitebackground"   => WHITE_B
       case _                   => ""
-    }
-}

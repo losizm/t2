@@ -15,7 +15,7 @@
  */
 package t2
 
-class TableSpec extends org.scalatest.flatspec.AnyFlatSpec with TableData {
+class TableSpec extends org.scalatest.flatspec.AnyFlatSpec with TableData:
   it should "create row-oriented table" in {
     check(Table.forRows(goodRows))
   }
@@ -31,4 +31,3 @@ class TableSpec extends org.scalatest.flatspec.AnyFlatSpec with TableData {
   it should "not create column-oriented table with inconsistent data" in {
     assertThrows[IllegalArgumentException](Table.forColumns(badColumns))
   }
-}

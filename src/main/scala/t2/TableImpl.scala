@@ -15,11 +15,11 @@
  */
 package t2
 
-private case class TableImpl(data: Seq[Seq[String]], isRowOriented: Boolean) extends Table {
-  lazy val rows        = if (isRowOriented) data else data.transpose
-  lazy val columns     = if (isRowOriented) data.transpose else data
-  lazy val rowCount    = if (isRowOriented) data.size else data.headOption.map(_.size).getOrElse(0)
-  lazy val columnCount = if (isRowOriented) data.headOption.map(_.size).getOrElse(0) else data.size
+private case class TableImpl(data: Seq[Seq[String]], isRowOriented: Boolean) extends Table:
+  lazy val rows        = if isRowOriented then data else data.transpose
+  lazy val columns     = if isRowOriented then data.transpose else data
+  lazy val rowCount    = if isRowOriented then data.size else data.headOption.map(_.size).getOrElse(0)
+  lazy val columnCount = if isRowOriented then data.headOption.map(_.size).getOrElse(0) else data.size
     
   def row(index: Int) =
     rows(index)
@@ -32,4 +32,3 @@ private case class TableImpl(data: Seq[Seq[String]], isRowOriented: Boolean) ext
 
   override lazy val toString =
     s"Table(rowCount=$rowCount,columnCount=$columnCount)"
-}

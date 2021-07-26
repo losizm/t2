@@ -5,21 +5,18 @@ description  := "Utility for text tables"
 homepage     := Some(url("https://github.com/losizm/t2"))
 licenses     := List("Apache License, Version 2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 
-scalaVersion := "2.13.5"
-scalacOptions ++= Seq("-deprecation", "-feature", "-Xcheckinit")
+scalaVersion := "3.0.1"
+
+scalacOptions ++= Seq("-deprecation", "-feature", "-new-syntax", "-Xfatal-warnings", "-Yno-experimental")
 
 Compile / doc / scalacOptions ++= Seq(
-  "-doc-title",   name.value,
-  "-doc-version", version.value
+  "-project-version", {
+    val ver = version.value
+    ver.substring(0, ver.lastIndexOf(".")) ++ ".x"
+  }
 )
 
-crossScalaVersions := Seq("2.12.13")
-
-unmanagedSourceDirectories in Compile += {
-  (sourceDirectory in Compile).value / s"scala-${scalaBinaryVersion.value}"
-}
-
-libraryDependencies += "org.scalatest" %% "scalatest-flatspec" % "3.2.5" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest-flatspec" % "3.2.9" % "test"
 
 scmInfo := Some(
   ScmInfo(

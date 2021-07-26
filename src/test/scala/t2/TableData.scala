@@ -15,7 +15,7 @@
  */
 package t2
 
-trait TableData {
+trait TableData:
   val goodRows = Seq(
     Seq("a", "b", "c"),
     Seq("x", "y", "z")
@@ -38,7 +38,7 @@ trait TableData {
     Seq("z")
   )
 
-  def check(table: Table): Unit = {
+  def check(table: Table): Unit =
     assert(table.rowCount == 2)
     assert(table.columnCount == 3)
     assert(table.rows == goodRows)
@@ -49,5 +49,3 @@ trait TableData {
     assert(table(1, 0) == "x")
     assert(table(1, 1) == "y")
     assert(table(1, 2) == "z")
-  }
-}

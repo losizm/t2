@@ -17,7 +17,7 @@
 /**
  * Defines types to create, access, and print tables.
  *
- * == Getting Started ==
+ * ## Getting Started
  *
  * Below is an example of how to use `TableBuilder` and `TableWriter`. Using
  * these utilities, it builds a `Table` and writes the content to stdout.

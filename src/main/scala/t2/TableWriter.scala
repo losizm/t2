@@ -20,7 +20,7 @@ import java.io.{ OutputStream, PrintWriter, Writer }
 /**
  * Defines table writer.
  *
- * == Usage ==
+ * ## Usage
  *
  * Below is an example of how to create, configure, and use the default
  * `TableWriter`.
@@ -49,26 +49,13 @@ import java.io.{ OutputStream, PrintWriter, Writer }
  * writer.write(System.out, table)
  * }}}
  *
- * The generated output would look something like the following if printed to a
- * color-enabled terminal.
- *
- * <pre style="background: black; color: white;">
- * <span style="color: #0cc;">===================================================</span>
- * <span style="background: #cc0; color: black;">  #  Effective Date  Currency Code  Exchange Rate  </span>
- * <span style="color: #cc0;">---------------------------------------------------</span>
- * <span style="color: #0cc; font-weight: bold;">  1 </span> 2021-01-04      USD                 0.690236
- * <span style="color: #0cc; font-weight: bold;">  2 </span> 2021-01-05      USD                 0.690627
- * <span style="color: #0cc; font-weight: bold;">  3 </span> 2021-01-06      USD                 0.689332
- * <span style="color: #0cc;">===================================================</span>
- * </pre>
- *
  * The table writer can be configured for changing such things as cell padding,
  * character used for table borders, and more.
  *
  * @see [[t2.TableWriter$.apply(config:Map[String,String])* TableWriter(Map[String, String])]],
  * [[t2.TableWriter$.apply(config:(String,String)*)* TableWriter((String,String)*)]]
  */
-trait TableWriter {
+trait TableWriter:
   /**
    * Writes table to given output.
    *
@@ -83,12 +70,10 @@ trait TableWriter {
    * @param out   output stream
    * @param table input table
    */
-  def write(out: OutputStream, table: Table): Unit = {
-    val writer = new PrintWriter(out, true)
+  def write(out: OutputStream, table: Table): Unit =
+    val writer = PrintWriter(out, true)
     try write(writer, table)
     finally writer.flush()
-  }
-}
 
 /**
  * Provides `TableWriter` factory.
@@ -97,41 +82,40 @@ trait TableWriter {
  *
  * Creates table writer with supplied configuration.
  *
- * == Writer Configuration ==
+ * ## Writer Configuration
  *
  * The following keys can be supplied to configure writer.
  *
- * |Key                 |Default Value     |
- * |--------------------|------------------|
- * |ansiColorEnabled    |`"false"`         |
- * |defaultColor^1^     |`AnsiColor.RESET` |
- * |leftMarginSize      |`"0"`             |
- * |rightMarginSize     |`"0"`             |
- * |tableBorderEnabled  |`"true"`          |
- * |tableBorderColor^1^ |defaultColor      |
- * |tableBorderChar     |`"="`             |
- * |tableHeaderEnabled  |`"true"`          |
- * |tableHeaderColor^1^ |defaultColor      |
- * |tableFooterEnabled  |`"false"`         |
- * |tableFooterColor^1^ |defaultColor      |
- * |bodyRuleEnabled     |`"true"`          |
- * |bodyRuleColor^1^    |defaultColor      |
- * |bodyRuleChar        |`"-"`             |
- * |rowHeaderEnabled    |`"false"`         |
- * |rowHeaderColor^1^   |defaultColor      |
- * |columnRightAlign^2^ |`""`              |
- * |cellColor^1^        |defaultColor      |
- * |cellPadSize         |`"1"`             |
- * |cellSpaceSize       |`"0"`             |
- * |cellSpaceColor^1^   |`""`              |
- * |maxValueSize        |`"20"`            |
- * |nullValue           |`""`              |
- * |truncateEnabled     |`"true"`          |
- * <span></span>
+ * |Key                      |Default Value     |
+ * |    ---------------------|------------------|
+ * |`"ansiColorEnabled"`     |`"false"`         |
+ * |`"defaultColor"` (1)     |`AnsiColor.RESET` |
+ * |`"leftMarginSize"`       |`"0"`             |
+ * |`"rightMarginSize"`      |`"0"`             |
+ * |`"tableBorderEnabled"`   |`"true"`          |
+ * |`"tableBorderColor"` (1) |defaultColor      |
+ * |`"tableBorderChar"`      |`"="`             |
+ * |`"tableHeaderEnabled"`   |`"true"`          |
+ * |`"tableHeaderColor"` (1) |defaultColor      |
+ * |`"tableFooterEnabled"`   |`"false"`         |
+ * |`"tableFooterColor"` (1) |defaultColor      |
+ * |`"bodyRuleEnabled"`      |`"true"`          |
+ * |`"bodyRuleColor"` (1)    |defaultColor      |
+ * |`"bodyRuleChar"`         |`"-"`             |
+ * |`"rowHeaderEnabled"`     |`"false"`         |
+ * |`"rowHeaderColor"` (1)   |defaultColor      |
+ * |`"columnRightAlign"` (2) |`""`              |
+ * |`"cellColor"` (1)        |defaultColor      |
+ * |`"cellPadSize"`          |`"1"`             |
+ * |`"cellSpaceSize"`        |`"0"`             |
+ * |`"cellSpaceColor"` (1)   |`""`              |
+ * |`"maxValueSize"`         |`"20"`            |
+ * |`"nullValue"`            |`""`              |
+ * |`"truncateEnabled"`      |`"true"`          |
  *
- * ^1^ Defined as string of `AnsiColor` values.
+ * (1) Defined as string of `AnsiColor` values.
  *
- * ^2^ Defined as comma- or space-delimited list of column indexes.
+ * (2) Defined as comma- or space-delimited list of column indexes.
  *
  * @define ansicolors
  *
@@ -161,7 +145,7 @@ trait TableWriter {
  *   - cyanBackground
  *   - whiteBackground
  */
-object TableWriter {
+object TableWriter:
   /**
    * $writerdoc
    *
@@ -180,5 +164,4 @@ object TableWriter {
    * @note $ansicolors
    */
   def apply(config: Map[String, String]): TableWriter =
-    new TableWriterImpl(config)
-}
+    TableWriterImpl(config)
