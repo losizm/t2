@@ -8,11 +8,11 @@ Utility for text tables.
 To get started, add **t2** to your project:
 
 ```scala
-libraryDependencies += "com.github.losizm" %% "t2" % "1.0.0"
+libraryDependencies += "com.github.losizm" %% "t2" % "1.0.1"
 ```
 
-_**NOTE**: Starting with version 1.0, **t2** is written for Scala 3
- exclusively. See previous releases for compatibility with Scala 2.12 and 2.13._
+_**NOTE**: Starting with version 1.0, **t2** is written for Scala 3. See
+previous releases for compatibility with Scala 2.12 and 2.13._
 
 ### Usage
 
@@ -49,9 +49,6 @@ color-enabled terminal:
 <div style="background: #111">
   <img style="padding: 0.2em;" src="images/table.png" width="470" />
 </div>
-
-Table output can be styled using configuration for such things as changing cell
-padding, character used for table borders, and more.
 
 ## API Documentation
 
