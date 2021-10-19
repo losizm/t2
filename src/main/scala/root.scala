@@ -1,23 +1,7 @@
-/*
- * Copyright 2021 Carlos Conyers
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 /**
  * Defines types to create, access, and print tables.
  *
- * ## Getting Started
+ * ## Usage
  *
  * Below is an example of how to use `TableBuilder` and `TableWriter`. Using
  * these utilities, it builds a `Table` and writes the content to stdout.
@@ -58,8 +42,4 @@
  * <span style="color: #0cc; font-weight: bold;">  3 </span> 2021-01-06      USD                 0.689332
  * <span style="color: #0cc;">===================================================</span>
  * </pre>
- *
- * The table writer can be configured for changing such things as cell padding,
- * character used for table borders, and more.
  */
-package object t2

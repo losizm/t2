@@ -5,15 +5,17 @@ description  := "Utility for text tables"
 homepage     := Some(url("https://github.com/losizm/t2"))
 licenses     := List("Apache License, Version 2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 
-scalaVersion := "3.0.1"
+scalaVersion := "3.0.2"
 
-scalacOptions ++= Seq("-deprecation", "-feature", "-new-syntax", "-Xfatal-warnings", "-Yno-experimental")
+scalacOptions := Seq("-deprecation", "-feature", "-new-syntax", "-Xfatal-warnings", "-Yno-experimental")
 
-Compile / doc / scalacOptions ++= Seq(
+Compile / doc / scalacOptions := Seq(
+  "-project", name.value,
   "-project-version", {
     val ver = version.value
     ver.substring(0, ver.lastIndexOf(".")) ++ ".x"
-  }
+  },
+  "-doc-root-content:src/main/scala/root.scala"
 )
 
 libraryDependencies += "org.scalatest" %% "scalatest-flatspec" % "3.2.9" % "test"
