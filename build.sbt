@@ -1,9 +1,11 @@
 organization := "com.github.losizm"
 name         := "t2"
-version      := "2.0.0-SNAPSHOT"
+version      := "2.0.0"
 description  := "Utility for text tables"
 homepage     := Some(url("https://github.com/losizm/t2"))
 licenses     := List("Apache License, Version 2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
+
+versionScheme := Some("early-semver")
 
 scalaVersion := "3.1.2"
 
