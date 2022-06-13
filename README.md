@@ -8,7 +8,7 @@ Utility for text tables.
 To get started, add **t2** to your project:
 
 ```scala
-libraryDependencies += "com.github.losizm" %% "t2" % "1.0.1"
+libraryDependencies += "com.github.losizm" %% "t2" % "2.0.0"
 ```
 
 _**NOTE**: Starting with version 1.0, **t2** is written for Scala 3. See

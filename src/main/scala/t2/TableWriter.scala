@@ -78,90 +78,72 @@ trait TableWriter:
 /**
  * Provides `TableWriter` factory.
  *
- * @define writerdoc
- *
- * Creates table writer with supplied configuration.
- *
  * ## Writer Configuration
  *
  * The following keys can be supplied to configure writer.
  *
- * |Key                      |Default Value     |
- * |    ---------------------|------------------|
- * |`"ansiColorEnabled"`     |`"false"`         |
- * |`"defaultColor"` (1)     |`AnsiColor.RESET` |
- * |`"leftMarginSize"`       |`"0"`             |
- * |`"rightMarginSize"`      |`"0"`             |
- * |`"tableBorderEnabled"`   |`"true"`          |
- * |`"tableBorderColor"` (1) |defaultColor      |
- * |`"tableBorderChar"`      |`"="`             |
- * |`"tableHeaderEnabled"`   |`"true"`          |
- * |`"tableHeaderColor"` (1) |defaultColor      |
- * |`"tableFooterEnabled"`   |`"false"`         |
- * |`"tableFooterColor"` (1) |defaultColor      |
- * |`"bodyRuleEnabled"`      |`"true"`          |
- * |`"bodyRuleColor"` (1)    |defaultColor      |
- * |`"bodyRuleChar"`         |`"-"`             |
- * |`"rowHeaderEnabled"`     |`"false"`         |
- * |`"rowHeaderColor"` (1)   |defaultColor      |
- * |`"columnRightAlign"` (2) |`""`              |
- * |`"cellColor"` (1)        |defaultColor      |
- * |`"cellPadSize"`          |`"1"`             |
- * |`"cellSpaceSize"`        |`"0"`             |
- * |`"cellSpaceColor"` (1)   |`""`              |
- * |`"maxValueSize"`         |`"20"`            |
- * |`"nullValue"`            |`""`              |
- * |`"truncateEnabled"`      |`"true"`          |
+ * | Key                                   | Default Value    |
+ * |---------------------------------------|------------------|
+ * | ansiColorEnabled                      |`"false"`         |
+ * | defaultColor <sup>&dagger;</sup>      |`AnsiColor.RESET` |
+ * | leftMarginSize                        |`"0"`             |
+ * | rightMarginSize                       |`"0"`             |
+ * | tableBorderEnabled                    |`"true"`          |
+ * | tableBorderColor <sup>&dagger;</sup>  |defaultColor      |
+ * | tableBorderChar                       |`"="`             |
+ * | tableHeaderEnabled                    |`"true"`          |
+ * | tableHeaderColor <sup>&dagger;</sup>  |defaultColor      |
+ * | tableFooterEnabled                    |`"false"`         |
+ * | tableFooterColor <sup>&dagger;</sup>  |defaultColor      |
+ * | bodyRuleEnabled                       |`"true"`          |
+ * | bodyRuleColor <sup>&dagger;</sup>     |defaultColor      |
+ * | bodyRuleChar                          |`"-"`             |
+ * | rowHeaderEnabled                      |`"false"`         |
+ * | rowHeaderColor <sup>&dagger;</sup>    |defaultColor      |
+ * | columnRightAlign <sup>&ddagger;</sup> |`""`              |
+ * | cellColor <sup>&dagger;</sup>         |defaultColor      |
+ * | cellPadSize                           |`"1"`             |
+ * | cellSpaceSize                         |`"0"`             |
+ * | cellSpaceColor <sup>&dagger;</sup>    |`""`              |
+ * | maxValueSize                          |`"20"`            |
+ * | nullValue                             |`""`              |
+ * | truncateEnabled                       |`"true"`          |
  *
- * (1) Defined as string of `AnsiColor` values.
+ * <small>&dagger; Defined as `AnsiColor` values (e.g., `AnsiColor.BLACK`).</small>
  *
- * (2) Defined as comma- or space-delimited list of column indexes.
+ * <small>&ddagger; Defined as comma- or space-delimited list of column indexes.</small>
  *
- * @define ansicolors
+ * ANSI colors can also be suppplied as a comma- or space-delimited list
+ * of any combination of following values:
  *
- * ANSI colors can also be suppplied as a comma- or space-delimited list of
- * any combination of following values:
- *
- *   - reset
- *   - bold
- *   - underlined
- *   - blink
- *   - reversed
- *   - invisible
- *   - black
- *   - red
- *   - green
- *   - yellow
- *   - blue
- *   - magenta
- *   - cyan
- *   - white
- *   - blackBackground
- *   - redBackground
- *   - greenBackground
- *   - yellowBackground
- *   - blueBackground
- *   - magentaBackground
- *   - cyanBackground
- *   - whiteBackground
+ * - reset
+ * - bold
+ * - underlined
+ * - blink
+ * - reversed
+ * - invisible
+ * - black
+ * - red
+ * - green
+ * - yellow
+ * - blue
+ * - magenta
+ * - cyan
+ * - white
+ * - blackBackground
+ * - redBackground
+ * - greenBackground
+ * - yellowBackground
+ * - blueBackground
+ * - magentaBackground
+ * - cyanBackground
+ * - whiteBackground
  */
 object TableWriter:
-  /**
-   * $writerdoc
-   *
-   * @param config writer configuration
-   *
-   * @note $ansicolors
-   */
+  /** Creates table writer with supplied configuration. */
   def apply(config: (String, String)*): TableWriter =
     apply(config.toMap)
 
-  /**
-   * $writerdoc
-   *
-   * @param config writer configuration
-   *
-   * @note $ansicolors
-   */
+  /** Creates table writer with supplied configuration. */
   def apply(config: Map[String, String]): TableWriter =
     TableWriterImpl(config)
